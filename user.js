@@ -37,12 +37,12 @@ constructor(inputDimensions, inputColour, inputX, inputY, inputZ, team){
 
     //the code below shouldn't really be here but is kept to test ball movements if necessary
 
-        ball.setUpwardsVelocity(-0.2)
-        ball.setHorizontalVelocity(0.85)
+        // ball.setUpwardsVelocity(-0.2)
+        // ball.setHorizontalVelocity(0.85)
 
-        ball.setUpwardsRotation(pi/4)
-        // ball.setHorizontalRotation((this.rotationDegrees*pi)/180)
-        ball.setHorizontalRotation(pi/2)
+        // ball.setUpwardsRotation(pi/4)
+        // // ball.setHorizontalRotation((this.rotationDegrees*pi)/180)
+        // ball.setHorizontalRotation(pi/2)
         
     };  
 
