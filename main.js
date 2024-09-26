@@ -17,7 +17,7 @@ camera.lookAt(0,0,0)
 
 //setting up the renderer
 const renderer = new THREE.WebGLRenderer({ antialias: true, });
-renderer.setSize(window.innerWidth, window.innerHeight-50);
+renderer.setSize(window.innerWidth-(window.innerWidth/150), window.innerHeight-50);
 renderer.setClearColor('skyblue');
 document.body.appendChild(renderer.domElement);
 
