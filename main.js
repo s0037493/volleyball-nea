@@ -45,10 +45,10 @@ let pointerArrow = new THREE.ArrowHelper( dir, origin, length, colour );
 
 //makes ball
 let ballDimensions = new THREE.SphereGeometry(1.5,32,16) //radius, width segments, height segments
-let ball = new Ball(ballDimensions, 'lightgrey', 10, 15, 10,) //dimensions, colour, x, y, z
+let ball = new Ball(ballDimensions, 'lightgrey', 8, 5, 10,) //dimensions, colour, x, y, z
 scene.add(ball.mesh)
 
-
+user.ballInRange()
 
 //user.setX(0)
 

@@ -92,7 +92,26 @@ class Player extends Box {
     }
   }
 
+  ballInRange(){
+    let XDistance = this.getX() - ball.getX()
+    console.log(XDistance)
+    let YDistance = this.getY() - ball.getY()
+    let ZDistance = this.getZ() - ball.getZ()
 
+    let totalDistanceSquared = XDistance^2 + YDistance^2 + ZDistance^2 //pythagoras
+    console.log(totalDistanceSquared)
+    let distanceToBall = Math.sqrt(totalDistanceSquared) //pythagoras
+    console.log(distanceToBall)
+
+    if(distanceToBall<5){
+      console.log("In range")
+      return true //ball is in range
+    }
+    else{
+      console.log("Out of range")
+      return false //ball out of range
+    }
+  }
   
   }
 
