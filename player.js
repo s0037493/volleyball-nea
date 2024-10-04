@@ -9,8 +9,6 @@ class Player extends Box {
     this.upwardsRotation = 0
     }
 
-
-  
   netCollider(){
 
   if(this.getX()==1 && this.getY()<20){
@@ -98,7 +96,7 @@ class Player extends Box {
     let YDistance = this.getY() - ball.getY()
     let ZDistance = this.getZ() - ball.getZ()
 
-    let totalDistanceSquared = XDistance^2 + YDistance^2 + ZDistance^2 //pythagoras
+    let totalDistanceSquared = XDistance**2 + YDistance**2 + ZDistance**2 //pythagoras
     console.log(totalDistanceSquared)
     let distanceToBall = Math.sqrt(totalDistanceSquared) //pythagoras
     console.log(distanceToBall)

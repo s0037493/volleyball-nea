@@ -16,24 +16,20 @@ constructor(inputDimensions, inputColour, inputX, inputY, inputZ, team){
   }
 
   checkMovement(input){ //method for user movement
-    if(input.keyCode ==87){  //w
+    if(input.key ==="w"){  //w
         this.mesh.position.z--; 
-
     };  
       
     if(input.keyCode ==65){  //a
         this.mesh.position.x--;
-
     };      
       
     if(input.keyCode ==83){  //s
         this.mesh.position.z++; 
-
     };   
       
     if(input.keyCode ==68){  //d
         this.mesh.position.x++;  
-
 
     //the code below shouldn't really be here but is kept to test ball movements if necessary
 
@@ -43,7 +39,7 @@ constructor(inputDimensions, inputColour, inputX, inputY, inputZ, team){
         // ball.setUpwardsRotation(pi/4)
         // // ball.setHorizontalRotation((this.rotationDegrees*pi)/180)
         // ball.setHorizontalRotation(pi/2)
-        
+
     };  
 
 
@@ -68,6 +64,38 @@ constructor(inputDimensions, inputColour, inputX, inputY, inputZ, team){
       }
   }
 
+  ballActions(input){
+    if(input.keyCode==69){  //e, hit
+        if(this.ballInRange()){
+            ball.setUpwardsVelocity(0.3)
+            ball.setHorizontalVelocity(0.65)
+
+            ball.setUpwardsRotation(pi/4)
+            ball.setHorizontalRotation(this.rotationRadians)
+        }
+    };  
+
+    if(input.keyCode==82){  //r, set
+        if(this.ballInRange()){
+            ball.setUpwardsVelocity(1.5)
+            ball.setHorizontalVelocity(0.25)
+
+            ball.setUpwardsRotation(pi/3)
+            ball.setHorizontalRotation(this.rotationRadians)
+        }
+    };  
+    
+    if(input.keyCode===80){  //p, move the ball into the air
+        ball.setY(10)
+        }
+
+    if(input.keyCode===76){  //l, move the ball into user
+        ball.setX(this.getX())
+        ball.setZ(this.getZ())
+        }
+    };  
+
+  
 
     arrow(){
         scene.remove(pointerArrow) //removes old arrow

@@ -23,7 +23,7 @@ class Ball{
       let newZ = this.getZ() + Math.cos(this.horizontalRotation)*this.horizontalVelocity
       this.setZ(newZ)
 
-      this.setHorizontalVelocity(this.getHorizontalVelocity()-0.02) //horizontal velocity should decrease slower (air resistance)
+      this.setHorizontalVelocity(this.getHorizontalVelocity()*0.99) //horizontal velocity should decrease slower (air resistance)
     } 
 
     if(this.upwardsVelocity != 0){
