@@ -78,9 +78,9 @@ constructor(inputDimensions, inputColour, inputX, inputY, inputZ, team){
     if(input.keyCode==82){  //r, set
         if(this.ballInRange()){
             ball.setUpwardsVelocity(1.5)
-            ball.setHorizontalVelocity(0.25)
+            ball.setHorizontalVelocity(0.35)
 
-            ball.setUpwardsRotation(pi/3)
+            ball.setUpwardsRotation(0.87266463) //50 degrees
             ball.setHorizontalRotation(this.rotationRadians)
         }
     };  
