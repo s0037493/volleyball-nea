@@ -68,7 +68,7 @@ constructor(inputDimensions, inputColour, inputX, inputY, inputZ, team){
     if(input.keyCode==69){  //e, hit
         if(this.ballInRange()){
             ball.setUpwardsVelocity(0.3)
-            ball.setHorizontalVelocity(0.65)
+            ball.setHorizontalVelocity(0.85)
 
             ball.setUpwardsRotation(pi/4)
             ball.setHorizontalRotation(this.rotationRadians)
@@ -89,8 +89,9 @@ constructor(inputDimensions, inputColour, inputX, inputY, inputZ, team){
         ball.setY(10)
         }
 
-    if(input.keyCode===76){  //l, move the ball into user
+    if(input.keyCode===76){  //l, move the ball above user
         ball.setX(this.getX())
+        ball.setY(this.getY()+7)
         ball.setZ(this.getZ())
         }
     };  

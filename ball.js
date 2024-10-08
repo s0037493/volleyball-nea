@@ -23,14 +23,14 @@ class Ball{
       let newZ = this.getZ() + Math.cos(this.horizontalRotation)*this.horizontalVelocity
       this.setZ(newZ)
 
-      this.setHorizontalVelocity(this.getHorizontalVelocity()*0.99) //horizontal velocity should decrease slower (air resistance)
+      this.setHorizontalVelocity(this.getHorizontalVelocity()*0.97) //horizontal velocity should decrease slower (air resistance)
     } 
 
     if(this.upwardsVelocity != 0){
       let newY = this.getY() + Math.sin(this.upwardsRotation)*this.upwardsVelocity
       this.setY(newY)
       
-      this.setUpwardsVelocity(this.getUpwardsVelocity()-0.033) //upward velocity should decrease faster (gravity)
+      this.setUpwardsVelocity(this.getUpwardsVelocity()-0.02) //upward velocity should decrease faster (gravity)
 
     }
 

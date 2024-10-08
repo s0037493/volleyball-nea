@@ -48,7 +48,12 @@ let ballDimensions = new THREE.SphereGeometry(1.5,32,16) //radius, width segment
 let ball = new Ball(ballDimensions, 'lightgrey', 9.5, 5, 10,) //dimensions, colour, x, y, z
 scene.add(ball.mesh)
 
+//makes an AI
+let ai = []
+ai[0] = new AI(playerDimensions, 'blue', 20, 5, -10, true) // dimensions, colour,x,y,z, team(right=true)
+scene.add(ai[0].mesh);
 
+user.pTpAngle("a","b")
 
 //user.setX(0)
 

@@ -91,23 +91,33 @@ class Player extends Box {
   }
 
   ballInRange(){
-    let XDistance = this.getX() - ball.getX()
+    let XDistance = 2*(this.getX() - ball.getX())
     console.log(XDistance)
     let YDistance = this.getY() - ball.getY()
-    let ZDistance = this.getZ() - ball.getZ()
+    let ZDistance = 2*(this.getZ() - ball.getZ())
 
     let totalDistanceSquared = XDistance**2 + YDistance**2 + ZDistance**2 //pythagoras
     console.log(totalDistanceSquared)
     let distanceToBall = Math.sqrt(totalDistanceSquared) //pythagoras
     console.log(distanceToBall)
 
-    if(distanceToBall<5){
+    if(distanceToBall<8){
       console.log("In range")
       return true //ball is in range
     }
     else{
       console.log("Out of range")
       return false //ball out of range
+    }
+  }
+
+
+  pTpAngle(playerA, playerB){
+    if(playerA=="a"){
+      let Aposition = [user.getX(), user.getY(), user.getZ()]
+    }
+    else if(playerA=="b"){
+      let Aposition = [user.getX(), user.getY(), user.getZ()]
     }
   }
   
