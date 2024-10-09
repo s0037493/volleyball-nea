@@ -93,6 +93,9 @@ constructor(inputDimensions, inputColour, inputX, inputY, inputZ, team){
         ball.setX(this.getX())
         ball.setY(this.getY()+7)
         ball.setZ(this.getZ())
+
+
+        console.log(this.rotationDegrees + " user's current rotation")
         }
     };  
 

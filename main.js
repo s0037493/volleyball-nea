@@ -53,11 +53,11 @@ let ai = []
 ai[0] = new AI(playerDimensions, 'blue', 20, 5, -10, true) // dimensions, colour,x,y,z, team(right=true)
 scene.add(ai[0].mesh);
 
-user.pTpAngle("a","b")
+pTpAngle("a","b")
 
 //user.setX(0)
 
-function render() {
+function render(){
   renderer.render(scene, camera);
   requestAnimationFrame(render);
 
@@ -79,6 +79,8 @@ function render() {
 
   ball.getUpwardsVelocity()
   ball.getHorizontalVelocity()
+
+  
 
 }
 
