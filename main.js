@@ -53,13 +53,25 @@ let ai = [0,1,2] //player's teammate = 0, other two ai are 1 and 2
 ai[0] = new AI(playerDimensions, 'blue', 20, 5, 10, true) // dimensions, colour,x,y,z, team(right=true)
 scene.add(ai[0].mesh);
 
-let servingPlayer = 0; //0 is user, 1 is AI 2, 2 is user's teammate, 3 is AI 3, 4 is no serve currently
+let serving = true;
+let servingPlayer = 2; //0 is user, 1 is AI 2, 2 is user's teammate, 3 is AI 3,
 
-function serving(){
+function servingControl(){
     console.log("test")
+    if(serving)
       if(servingPlayer == 0){
         user.setX(50)
         user.setZ(-10)
+      }
+      else if(servingPlayer==1){
+        console.log("ai 2 doesnt exist")
+      }
+      else if(servingPlayer==2){
+        ai[0].setX(50)
+        ai[0].setZ(-10)
+      }
+      else if(servingPlayer==1){
+        console.log("ai 3 doesnt exist")
       }
     }
 
@@ -87,7 +99,7 @@ function render(){
   ball.getUpwardsVelocity()
   ball.getHorizontalVelocity()
   
-  serving()
+  servingControl()
 
 
 
