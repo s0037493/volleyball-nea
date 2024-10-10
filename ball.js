@@ -50,8 +50,8 @@ class Ball{
   }
 
   courtCollider(){
-    if(this.getY()<5){
-      this.setY(5)
+    if(this.getY()<1.5){
+      this.setY(1.5)
       this.setUpwardsVelocity(0) //ensures user motion stops and physics engine wont take them lower.
       this.setHorizontalVelocity(0)
     }

@@ -1,4 +1,7 @@
-function pTpAngle(playerA, playerB){
+function pTpAngle(playerA, playerB){ 
+
+  console.log("TEST TO SEE IF PTP FUNCTION IS WORKING")
+
     let Aposition = []
     let Bposition = []
 
@@ -35,17 +38,22 @@ function pTpAngle(playerA, playerB){
       AB[i] = Bposition[i] - Aposition[i]
       dotProduct = (AB[i]*D[i]) + dotProduct
     }
-    console.log(AB)  
-    console.log(dotProduct)
+
 
     //D represents a dotted line with direction vector (0,0,1)
 
     let magnitudeD = 1
     let magnitudeAB = Math.sqrt(AB[0]**2 + AB[1]**2 +AB[2]**2)
-    console.log(magnitudeAB)
     
     let cosTheta = dotProduct / (magnitudeD*magnitudeAB)
     let Theta = Math.acos(cosTheta)
 
+    //if the angle required is reflex, then uses the other value of arccos(theta)
+    if(Aposition[0]>=Bposition[0]){ 
+      Theta = (2*pi) - Theta
+    }
+
     console.log((Theta/pi)*180 + " calculation's result")
+
+    return Theta;
 }

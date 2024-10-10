@@ -33,7 +33,7 @@ scene.add(net.mesh);
 
 //makes user
 let playerDimensions = new THREE.BoxGeometry(3,10,3) //used for all players
-let user = new User(playerDimensions, 'red',5, 5, 10, true) // dimensions, colour,x,y,z, team(right=true)
+user = new User(playerDimensions, 'red',5, 5, 10, true) // dimensions, colour,x,y,z, team(right=true)
 scene.add(user.mesh);
 
 //makes arrow, rest of arrow code is in user.js
@@ -49,13 +49,20 @@ let ball = new Ball(ballDimensions, 'lightgrey', 9.5, 5, 10,) //dimensions, colo
 scene.add(ball.mesh)
 
 //makes an AI
-let ai = []
-ai[0] = new AI(playerDimensions, 'blue', 20, 5, -10, true) // dimensions, colour,x,y,z, team(right=true)
+let ai = [0,1,2] //player's teammate = 0, other two ai are 1 and 2
+ai[0] = new AI(playerDimensions, 'blue', 20, 5, 10, true) // dimensions, colour,x,y,z, team(right=true)
 scene.add(ai[0].mesh);
 
-pTpAngle("a","b")
+let servingPlayer = 0; //0 is user, 1 is AI 2, 2 is user's teammate, 3 is AI 3, 4 is no serve currently
 
-//user.setX(0)
+function serving(){
+    console.log("test")
+      if(servingPlayer == 0){
+        user.setX(50)
+        user.setZ(-10)
+      }
+    }
+
 
 function render(){
   renderer.render(scene, camera);
@@ -79,8 +86,10 @@ function render(){
 
   ball.getUpwardsVelocity()
   ball.getHorizontalVelocity()
-
   
+  serving()
+
+
 
 }
 

@@ -77,13 +77,27 @@ constructor(inputDimensions, inputColour, inputX, inputY, inputZ, team){
 
     if(input.keyCode==82){  //r, set
         if(this.ballInRange()){
-            ball.setUpwardsVelocity(1.5)
-            ball.setHorizontalVelocity(0.35)
+            ball.setUpwardsVelocity(1.2)
+            ball.setHorizontalVelocity(0.45)
 
             ball.setUpwardsRotation(0.87266463) //50 degrees
             ball.setHorizontalRotation(this.rotationRadians)
         }
     };  
+
+    if(input.keyCode == 70){  //f, pass (automatic angle)
+        if(this.ballInRange()){
+
+            ball.setUpwardsVelocity(1.5)
+            ball.setHorizontalVelocity(0.35)
+
+            ball.setUpwardsRotation(0.87266463) //50 degrees
+
+            console.log("angle required is: "+pTpAngle("a","b"))
+
+            ball.setHorizontalRotation(pTpAngle("a","b"))
+        }
+    };
     
     if(input.keyCode===80){  //p, move the ball into the air
         ball.setY(10)
