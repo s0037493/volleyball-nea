@@ -54,23 +54,54 @@ ai[0] = new AI(playerDimensions, 'blue', 20, 5, 10, true) // dimensions, colour,
 scene.add(ai[0].mesh);
 
 let serving = true;
-let servingPlayer = 2; //0 is user, 1 is AI 2, 2 is user's teammate, 3 is AI 3,
+let servingPlayer = 0; //0 is user, 1 is AI 2, 2 is user's teammate, 3 is AI 3,
+let toMove = true;
+let serviceCollider = true;
+let gPressed = false;
 
-function servingControl(){
-    console.log("test")
+function servingControl(input){ //feed in the keyboard input
     if(serving)
       if(servingPlayer == 0){
+        if(toMove==true){
         user.setX(50)
-        user.setZ(-10)
-      }
+        user.setZ(-10) //moves user to service line
+        toMove=false;
+        }
+
+        if(serviceCollider==true){
+          if(user.getX()<=47){
+            user.setX(47) //keeps the user behind the service line
+          }
+          else{
+            console.log(serviceCollider)
+          }
+
+          if(input.keyCode==32){ //space
+            console.log("success")
+            serviceCollider=false; //remove service collider
+          }
+        }
+
+        if(user.getX()<46){
+          if(gPressed==false){
+          console.log("service fault (not yet implemented)")
+          }
+          serving = false;
+        }
+        }
+        }
+      
       else if(servingPlayer==1){
         console.log("ai 2 doesnt exist")
       }
       else if(servingPlayer==2){
-        ai[0].setX(50)
-        ai[0].setZ(-10)
-      }
-      else if(servingPlayer==1){
+        if(toMove==true){
+          ai[0].setX(50)
+          ai[0].setZ(-10) 
+          toMove=false;
+          }
+        }
+      else if(servingPlayer==3){
         console.log("ai 3 doesnt exist")
       }
     }
@@ -83,10 +114,9 @@ function render(){
   window.onkeydown = function(pressedButton){ //uses HTML
     user.checkMovement(pressedButton)
     user.ballActions(pressedButton)
+    servingControl(pressedButton)
   } //these lines check what button is pressed, then do an output
 
-
-  
   user.arrow()
   user.netCollider()
   user.courtCollider()
@@ -98,8 +128,6 @@ function render(){
 
   ball.getUpwardsVelocity()
   ball.getHorizontalVelocity()
-  
-  servingControl()
 
 
 

@@ -1,6 +1,6 @@
 function pTpAngle(playerA, playerB){ 
 
-  console.log("TEST TO SEE IF PTP FUNCTION IS WORKING")
+
 
     let Aposition = []
     let Bposition = []
