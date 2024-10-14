@@ -100,6 +100,7 @@ constructor(inputDimensions, inputColour, inputX, inputY, inputZ, team){
     };
     
     if(input.keyCode===80){  //p, move the ball into the air
+        ball.setX(0)
         ball.setY(10)
         }
 
@@ -111,6 +112,43 @@ constructor(inputDimensions, inputColour, inputX, inputY, inputZ, team){
 
         console.log(this.rotationDegrees + " user's current rotation")
         }
+
+
+    if(input.keyCode==84){  //t, toss
+        if(servingPlayer==0){
+        if(this.ballInRange()){
+            ball.setUpwardsVelocity(1)
+            ball.setHorizontalVelocity(0.1)
+    
+            ball.setUpwardsRotation(1.22173048) //70 degrees
+            ball.setHorizontalRotation(this.rotationRadians)
+            serviceCollider=false;
+        }
+    }
+    };  
+
+    if(input.keyCode==71){  //g, serve
+        if(servingPlayer==0){
+        if(this.ballInRange()){
+            if(this.getY()>=7){
+                console.log("jump serve")
+            ball.setUpwardsVelocity(0.6)
+            ball.setHorizontalVelocity(2.3)
+            }
+            else{  
+                console.log("not a jump serve")
+            ball.setUpwardsVelocity(0.8)
+            ball.setHorizontalVelocity(2)
+            }
+            ball.setUpwardsRotation(0.87266463) //50 degrees
+            ball.setHorizontalRotation(this.rotationRadians)
+            serviceCollider=false;
+            gPressed=true;
+            serving=false;
+        }
+    }
+    };
+
     };  
 
   

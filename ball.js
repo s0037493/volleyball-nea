@@ -39,12 +39,18 @@ class Ball{
 
   netCollider(){
     
-  if(this.getX() >= 0.5 && this.getX() <= 1.5 && this.getY() < 16.5){ // lower bound, upper bound, net height
+  if(this.getX() >= 0.1 && this.getX() <= 1.5 && this.getY() < 16.5){ // lower bound, upper bound, net height
     this.setX(1.5) //right hand side
 
   }
-  else if(this.getX() >= -1.5 &&  this.getX() <= -0.5 &&  this.getY()<16.5){ // lower bound, upper bound, net height
+  else if(this.getX() >= -1.5 &&  this.getX() <= -0.1 &&  this.getY()<16.5){ // lower bound, upper bound, net height
     this.setX(-1.5) //left hand side
+  }
+  else if(this.getX() > -0.1 &&  this.getX() < 0.1 && this.getY()<16.5){
+    this.setX(0)
+    this.setY(16.5)
+    this.setUpwardsVelocity(0) //ensures user motion stops and physics engine wont take them lower.
+    this.setHorizontalVelocity(0)
   }
 
   }

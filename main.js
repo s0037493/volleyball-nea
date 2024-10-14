@@ -59,9 +59,10 @@ let toMove = true;
 let serviceCollider = true;
 let gPressed = false;
 
-function servingControl(input){ //feed in the keyboard input
+function servingControl(){ 
     if(serving)
       if(servingPlayer == 0){
+
         if(toMove==true){
         user.setX(50)
         user.setZ(-10) //moves user to service line
@@ -69,6 +70,11 @@ function servingControl(input){ //feed in the keyboard input
         }
 
         if(serviceCollider==true){
+
+          ball.setX(user.getX()+3.5*Math.sin(user.rotationRadians))
+          ball.setZ(user.getZ()+1.6*Math.cos(user.rotationRadians))
+          ball.setY(user.getY())
+
           if(user.getX()<=47){
             user.setX(47) //keeps the user behind the service line
           }
@@ -76,20 +82,20 @@ function servingControl(input){ //feed in the keyboard input
             console.log(serviceCollider)
           }
 
-          if(input.keyCode==32){ //space
-            console.log("success")
-            serviceCollider=false; //remove service collider
-          }
+          // if(input.keyCode==32){ //space
+          //   console.log("success")
+          //   serviceCollider=false; //remove service collider
+          // }
         }
 
-        if(user.getX()<46){
+        if(user.getX()<46 && user.getY()==5){
           if(gPressed==false){
           console.log("service fault (not yet implemented)")
           }
           serving = false;
         }
         }
-        }
+        
       
       else if(servingPlayer==1){
         console.log("ai 2 doesnt exist")
@@ -114,7 +120,7 @@ function render(){
   window.onkeydown = function(pressedButton){ //uses HTML
     user.checkMovement(pressedButton)
     user.ballActions(pressedButton)
-    servingControl(pressedButton)
+
   } //these lines check what button is pressed, then do an output
 
   user.arrow()
@@ -129,7 +135,7 @@ function render(){
   ball.getUpwardsVelocity()
   ball.getHorizontalVelocity()
 
-
+  servingControl()
 
 }
 
