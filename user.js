@@ -9,7 +9,7 @@ constructor(inputDimensions, inputColour, inputX, inputY, inputZ, team){
   this.mesh.position.y = inputY
   this.mesh.position.z = inputZ
     
-  this.rotationDegrees=0 //defaults at 0
+  this.rotationDegrees=270 //defaults at 270
     
 
 
@@ -115,7 +115,7 @@ constructor(inputDimensions, inputColour, inputX, inputY, inputZ, team){
 
 
     if(input.keyCode==84){  //t, toss
-        if(servingPlayer==0){
+        if(servingPlayer==0 && serving==true){
         if(this.ballInRange()){
             ball.setUpwardsVelocity(1)
             ball.setHorizontalVelocity(0.1)
@@ -128,7 +128,7 @@ constructor(inputDimensions, inputColour, inputX, inputY, inputZ, team){
     };  
 
     if(input.keyCode==71){  //g, serve
-        if(servingPlayer==0){
+        if(servingPlayer==0 & serving==true){ 
         if(this.ballInRange()){
             if(this.getY()>=7){
                 console.log("jump serve")

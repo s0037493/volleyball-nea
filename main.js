@@ -14,6 +14,18 @@ camera.position.z = 40
 camera.position.y = 40
 camera.lookAt(0,0,0)
 
+function cameraMovement(){
+  if(serving==true){
+      if(camera.position.y<=50){
+      camera.position.y=camera.position.y+0.05
+      camera.position.z=camera.position.z+0.05
+      }
+  }
+  else if(serving==false){
+      camera.position.y=40
+      camera.position.z=40
+  }
+  }
 
 //setting up the renderer
 const renderer = new THREE.WebGLRenderer({ antialias: true, });
@@ -136,7 +148,7 @@ function render(){
   ball.getHorizontalVelocity()
 
   servingControl()
-
+  cameraMovement()
 }
 
 
