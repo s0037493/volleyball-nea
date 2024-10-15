@@ -39,9 +39,11 @@ let court = new Box(courtDimensions, 'khaki')
 scene.add(court.mesh);
 
 //makes net
-let netDimensions = new THREE.BoxGeometry(0.5,30,30)
+let netDimensions = new THREE.BoxGeometry(0.5,15,30)
 let net = new Box(netDimensions, 'hotpink')
+net.mesh.position.set(0,7.5,0)
 scene.add(net.mesh);
+
 
 //makes user
 let playerDimensions = new THREE.BoxGeometry(3,10,3) //used for all players
