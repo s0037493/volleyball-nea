@@ -12,7 +12,7 @@ const camera = new THREE.PerspectiveCamera(
 camera.position.x= 1
 camera.position.z = 40
 camera.position.y = 40
-camera.lookAt(0,0,0)
+camera.lookAt(0,15,0)
 
 function cameraMovement(){
   if(serving==true){
@@ -44,7 +44,6 @@ let net = new Box(netDimensions, 'hotpink')
 net.mesh.position.set(0,7.5,0)
 scene.add(net.mesh);
 
-
 //makes user
 let playerDimensions = new THREE.BoxGeometry(3,10,3) //used for all players
 user = new User(playerDimensions, 'red',5, 5, 10, true) // dimensions, colour,x,y,z, team(right=true)
@@ -64,7 +63,7 @@ scene.add(ball.mesh)
 
 //makes an AI
 let ai = [0,1,2] //player's teammate = 0, other two ai are 1 and 2
-ai[0] = new AI(playerDimensions, 'blue', 20, 5, 10, true) // dimensions, colour,x,y,z, team(right=true)
+ai[0] = new AI(playerDimensions, 'blue', 10, 5, -10, true) // dimensions, colour,x,y,z, team(right=true)
 scene.add(ai[0].mesh);
 
 let serving = true;
@@ -152,10 +151,6 @@ function render(){
   servingControl()
   cameraMovement()
 }
-
-
-
-
 
 render()
 

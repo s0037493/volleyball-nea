@@ -68,9 +68,9 @@ constructor(inputDimensions, inputColour, inputX, inputY, inputZ, team){
     if(input.keyCode==69){  //e, hit
         if(this.ballInRange()){
             ball.setUpwardsVelocity(0.3)
-            ball.setHorizontalVelocity(0.85)
+            ball.setHorizontalVelocity(0.5)
 
-            ball.setUpwardsRotation(pi/4)
+            ball.setUpwardsRotation(1.22173048)
             ball.setHorizontalRotation(this.rotationRadians)
         }
     };  
@@ -78,18 +78,40 @@ constructor(inputDimensions, inputColour, inputX, inputY, inputZ, team){
     if(input.keyCode==82){  //r, set
         if(this.ballInRange()){
             ball.setUpwardsVelocity(1.2)
-            ball.setHorizontalVelocity(0.45)
+            ball.setHorizontalVelocity(0.15)
 
-            ball.setUpwardsRotation(0.87266463) //50 degrees
+            ball.setUpwardsRotation(1.22173048) //50 degrees
             ball.setHorizontalRotation(this.rotationRadians)
         }
     };  
 
     if(input.keyCode == 70){  //f, pass (automatic angle)
         if(this.ballInRange()){
-
             ball.setUpwardsVelocity(1.5)
-            ball.setHorizontalVelocity(0.35)
+            //HORIZONTAL VELOCITY MANAGEMENT
+            let ABdist = ABDistance("a","b")
+            console.log(ABdist)
+                if(ABdist<=12){ //0 to 12
+                    ball.setHorizontalVelocity(0.05)
+                }
+                else if(ABdist <= 18){ //13 to 18
+                    ball.setHorizontalVelocity(0.1)
+                }
+                else if(ABdist <= 22){ //19 to 22
+                    ball.setHorizontalVelocity(0.12)
+                }
+                else if(ABdist <= 26){ //23 to 26
+                    ball.setHorizontalVelocity(0.14)
+                }
+                else if(ABdist <= 29){ //27 to 29 
+                    ball.setHorizontalVelocity(0.16)
+                }
+                else if(ABdist >= 30){ //30 up
+                    ball.setHorizontalVelocity(0.2)
+                }
+                }
+            
+            
 
             ball.setUpwardsRotation(0.87266463) //50 degrees
 
@@ -97,7 +119,7 @@ constructor(inputDimensions, inputColour, inputX, inputY, inputZ, team){
 
             ball.setHorizontalRotation(pTpAngle("a","b"))
         }
-    };
+    ;
     
     if(input.keyCode===80){  //p, move the ball into the air
         ball.setX(0)
@@ -118,7 +140,7 @@ constructor(inputDimensions, inputColour, inputX, inputY, inputZ, team){
         if(servingPlayer==0 && serving==true){
         if(this.ballInRange()){
             ball.setUpwardsVelocity(1)
-            ball.setHorizontalVelocity(0.1)
+            ball.setHorizontalVelocity(0)
     
             ball.setUpwardsRotation(1.22173048) //70 degrees
             ball.setHorizontalRotation(this.rotationRadians)
@@ -133,12 +155,12 @@ constructor(inputDimensions, inputColour, inputX, inputY, inputZ, team){
             if(this.getY()>=7){
                 console.log("jump serve")
             ball.setUpwardsVelocity(0.6)
-            ball.setHorizontalVelocity(2.3)
+            ball.setHorizontalVelocity(2.1)
             }
             else{  
                 console.log("not a jump serve")
             ball.setUpwardsVelocity(0.8)
-            ball.setHorizontalVelocity(2)
+            ball.setHorizontalVelocity(1.8)
             }
             ball.setUpwardsRotation(0.87266463) //50 degrees
             ball.setHorizontalRotation(this.rotationRadians)
