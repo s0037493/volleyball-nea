@@ -152,6 +152,8 @@ constructor(inputDimensions, inputColour, inputX, inputY, inputZ, team){
     if(input.keyCode==71){  //g, serve
         if(servingPlayer==0 & serving==true){ 
         if(this.ballInRange()){
+            ball.startingY = ball.getY()
+            ball.t=0
             if(this.getY()>=7){
                 console.log("jump serve")
             ball.setUpwardsVelocity(0.6)

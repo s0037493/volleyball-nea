@@ -11,6 +11,9 @@ class Ball{
     
   this.upwardsRotation = 0
   this.horizontalRotation = 0
+
+  this.startingY=5
+  this.t=0
     
   }
 
@@ -19,9 +22,6 @@ class Ball{
     if(this.horizontalVelocity != 0){
       let newX = this.getX() + Math.sin(this.horizontalRotation)*this.horizontalVelocity
       this.setX(newX)
-      let predictedX = this.getX() + Math.sin(this.horizontalRotation)*(this.horizontalVelocity*0.97**100)
-      console.log("pred x = " + predictedX)
-      console.log("actual x = "+this.getX())
 
       let newZ = this.getZ() + Math.cos(this.horizontalRotation)*this.horizontalVelocity
       this.setZ(newZ)
@@ -33,16 +33,20 @@ class Ball{
     } 
 
     if(this.upwardsVelocity != 0){
-      let newY = this.getY() + Math.sin(this.upwardsRotation)*this.upwardsVelocity
-      this.setY(newY)
+      // let newY = this.getY() + Math.sin(this.upwardsRotation)*this.upwardsVelocity
+      // this.setY(newY)
       
-      
-      this.setUpwardsVelocity(this.getUpwardsVelocity()-0.02) //upward velocity should decrease faster (gravity)
+      // this.setUpwardsVelocity(this.getUpwardsVelocity()-0.02) //upward velocity should decrease faster (gravity)
+
+      //s = ut + 1/2at^2
+
+      this.setY(this.startingY + this.upwardsVelocity*this.t + 0.5*-0.02*(this.t**2))
+      this.t++
 
     }
 
     }
-  
+  s
 
   netCollider(){
     
