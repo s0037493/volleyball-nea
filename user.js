@@ -67,6 +67,7 @@ constructor(inputDimensions, inputColour, inputX, inputY, inputZ, team){
   ballActions(input){
     if(input.keyCode==69){  //e, hit
         if(this.ballInRange()){
+            ball.iterations = 1
             ball.setUpwardsVelocity(0.3)
             ball.setHorizontalVelocity(0.5)
 
@@ -77,6 +78,7 @@ constructor(inputDimensions, inputColour, inputX, inputY, inputZ, team){
 
     if(input.keyCode==82){  //r, set
         if(this.ballInRange()){
+            ball.iterations = 1
             ball.setUpwardsVelocity(1.2)
             ball.setHorizontalVelocity(0.15)
 
@@ -87,6 +89,7 @@ constructor(inputDimensions, inputColour, inputX, inputY, inputZ, team){
 
     if(input.keyCode == 70){  //f, pass (automatic angle)
         if(this.ballInRange()){
+            ball.iterations = 1
             ball.setUpwardsVelocity(1.5)
             //HORIZONTAL VELOCITY MANAGEMENT
             let ABdist = ABDistance("a","b")
@@ -110,13 +113,9 @@ constructor(inputDimensions, inputColour, inputX, inputY, inputZ, team){
                     ball.setHorizontalVelocity(0.2)
                 }
                 }
-            
-            
 
             ball.setUpwardsRotation(0.87266463) //50 degrees
-
             console.log("angle required is: "+pTpAngle("a","b"))
-
             ball.setHorizontalRotation(pTpAngle("a","b"))
         }
     ;
@@ -141,6 +140,7 @@ constructor(inputDimensions, inputColour, inputX, inputY, inputZ, team){
         if(this.ballInRange()){
             ball.setUpwardsVelocity(1)
             ball.setHorizontalVelocity(0)
+            ball.iterations = 1
     
             ball.setUpwardsRotation(1.22173048) //70 degrees
             ball.setHorizontalRotation(this.rotationRadians)

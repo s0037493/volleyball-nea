@@ -33,9 +33,9 @@ class Ball{
       this.predUpVelocity = this.upwardsVelocity
       this.predictedX = this.getX()
       this.predictedY = this.getY()
-      this.predictedZ = this.getZ()
+      this.predictedZ = this.getZ()                             
 
-      //this loop runs 100 times for every 1 time the ball physics engine runs, so essentially this simulates 100 runs of the physics engine
+      // this loop runs 100 times for every 1 time the ball physics engine runs, so essentially this simulates 100 runs of the physics engine
       for(let i = 0; i<100; i++){
         if(this.predUpVelocity!=0){ //if the ball is predicted to have hit the floor then this function will not run
           this.predictedX = this.predictedX + Math.sin(this.horizontalRotation)*this.predHorVelocity //x
@@ -46,7 +46,7 @@ class Ball{
           this.predictedY = this.predictedY + Math.sin(this.upwardsRotation)*this.predUpVelocity //y
           this.predUpVelocity=this.predUpVelocity-0.02 //decrease upwards velocity
 
-          if(this.predictedY<=0){ //once the ball is predicted to have hit the floor:
+          if(this.predictedY<=1){ //once the ball is predicted to have hit the floor:
             this.predUpVelocity=0 //set our predicted velocity to 0 (so the whole prediction if statement stops running)
             //then give our predictions:
             console.log("iteration "+this.iterations)

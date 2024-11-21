@@ -63,15 +63,17 @@ scene.add(ball.mesh)
 
 //makes an AI
 let ai = [0,1,2] //player's teammate = 0, other two ai are 1 and 2
-ai[0] = new AI(playerDimensions, 'blue', 10, 5, -10, true) // dimensions, colour,x,y,z, team(right=true)
+ai[0] = new AI(playerDimensions, 'blue', 10, 5, -10, true, 0) // dimensions, colour,x,y,z, team(right=true)
 scene.add(ai[0].mesh);
 
+//variables for serving
 let serving = true;
-let servingPlayer = 0; //0 is user, 1 is AI 2, 2 is user's teammate, 3 is AI 3,
+let servingPlayer = 0; //0 is user, 1 is AI 2, 2 is user's teammate (aka AI 1), 3 is AI 3,
 let toMove = true;
 let serviceCollider = true;
 let gPressed = false;
 
+//controls server
 function servingControl(){ 
     if(serving)
       if(servingPlayer == 0){
