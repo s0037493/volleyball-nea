@@ -85,7 +85,7 @@ function ABDistance(playerA,playerB){
       Bposition = [ai[2].getX(), ai[2].getY(), ai[2].getZ()]
     }
     else if(playerB=="ball"){
-      Bposition = [get]
+      Bposition = [getPredictedX(),1,getPredictedZ()]
     }
 
     let AB = []

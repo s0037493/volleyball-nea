@@ -173,6 +173,7 @@ class User extends Player {
                serving = false;
 
                movementPrediction()
+               movementDecision()
             }
          }
       };

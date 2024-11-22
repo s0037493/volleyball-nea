@@ -60,6 +60,7 @@
         }
         else{
           //find the closest player
+          console.log(ABDistance("a","ball"))
         }
       }
 
@@ -70,5 +71,15 @@
         else if(lastTouch=3){//their teammate
           return "d"
         }
+        else{
+          //find the closest player
+        }
       }
+  }
+
+  function getPredictedX(){
+    return predictedX
+  }
+  function getPredictedZ(){
+    return predictedZ
   }
