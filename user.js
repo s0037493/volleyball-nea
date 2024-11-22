@@ -73,7 +73,7 @@ class User extends Player {
 
             ball.setUpwardsRotation(1.22173048)
             ball.setHorizontalRotation(this.rotationRadians)
-            movementDecision()
+            movementPrediction()
          }
       };
 
@@ -85,7 +85,7 @@ class User extends Player {
 
             ball.setUpwardsRotation(1.22173048) //50 degrees
             ball.setHorizontalRotation(this.rotationRadians)
-            movementDecision()
+            movementPrediction()
          }
       };
 
@@ -119,7 +119,7 @@ class User extends Player {
          ball.setUpwardsRotation(0.87266463) //50 degrees
          console.log("angle required is: " + pTpAngle("a", "b"))
          ball.setHorizontalRotation(pTpAngle("a", "b"))
-         movementDecision()
+         movementPrediction()
       }
       ;
 
@@ -172,7 +172,7 @@ class User extends Player {
                gPressed = true;
                serving = false;
 
-               movementDecision()
+               movementPrediction()
             }
          }
       };

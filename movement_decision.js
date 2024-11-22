@@ -1,5 +1,5 @@
       
- function movementDecision(){
+ function movementPrediction(){
     console.log("rt")
       //Predicting the coordinates---------------------------------------------------------
       //every time this function runs, the below variables update so they are up to date when calculating prediction
