@@ -14,7 +14,4 @@ class AI extends Player {
 
       }
 
-
-
-      
     }   

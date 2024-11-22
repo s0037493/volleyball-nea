@@ -46,7 +46,7 @@ scene.add(net.mesh);
 
 //makes user
 let playerDimensions = new THREE.BoxGeometry(3,10,3) //used for all players
-user = new User(playerDimensions, 'red',5, 5, 10, true) // dimensions, colour,x,y,z, team(right=true)
+let user = new User(playerDimensions, 'red',5, 5, 10, true) // dimensions, colour,x,y,z, team(right=true)
 scene.add(user.mesh);
 
 //makes arrow, rest of arrow code is in user.js

@@ -1,4 +1,7 @@
-      
+  let predictedX;
+  let predictedY;
+  let predictedZ;
+  
  function movementPrediction(){
     console.log("rt")
       //Predicting the coordinates---------------------------------------------------------
@@ -6,9 +9,9 @@
       let predUpVelocity = ball.getUpwardsVelocity()
       let predHorVelocity = ball.getHorizontalVelocity()
 
-      let predictedX = ball.getX()
-      let predictedY = ball.getY()
-      let predictedZ = ball.getZ()   
+      predictedX = ball.getX()
+      predictedY = ball.getY()
+      predictedZ = ball.getZ()   
 
     //   console.log(predictedX)
 
@@ -43,3 +46,29 @@
     }
 
 
+    function movementDecision(){
+      let predictedCoordinates = movementPrediction()
+      let predictedX = predictedCoordinates[0]
+      let predictedZ = predictedCoordinates[2]
+
+      if(predictedX>0){
+        if(lastTouch=0){ //user
+          return "a"
+        }
+        else if(lastTouch=2){ //user's teammate
+          return "c"
+        }
+        else{
+          //find the closest player
+        }
+      }
+
+      else if(predictedX<0){
+        if(lastTouch=1){//correspond to user
+          return "b"
+        }
+        else if(lastTouch=3){//their teammate
+          return "d"
+        }
+      }
+  }
