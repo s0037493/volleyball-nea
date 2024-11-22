@@ -63,8 +63,14 @@ scene.add(ball.mesh)
 
 //makes an AI
 let ai = [0,1,2] //player's teammate = 0, other two ai are 1 and 2
-ai[0] = new AI(playerDimensions, 'blue', 10, 5, -10, true, 0) // dimensions, colour,x,y,z, team(right=true)
+ai[0] = new AI(playerDimensions, 'blue', 10, 5, -10, true, 0) // dimensions, colour,x,y,z, team(right=true), iteration
 scene.add(ai[0].mesh);
+
+ai[1] = new AI(playerDimensions, 'purple', -20, 5, 10, false, 1) //this is the AI that corresponds to the user, meaning it serves after the user.
+scene.add(ai[1].mesh)
+
+ai[2] = new AI(playerDimensions, 'green',-20, 5, -10, false, 2) //corresponds to the AI's teammate
+scene.add(ai[2].mesh)
 
 //variables for serving
 let serving = true;
@@ -72,6 +78,10 @@ let servingPlayer = 0; //0 is user, 1 is AI 2, 2 is user's teammate (aka AI 1), 
 let toMove = true;
 let serviceCollider = true;
 let gPressed = false;
+
+let lastTouchTeam = false; //true is left, false is right
+let lastTouch = 0  //0 is user, 1 is AI 2, 2 is user's teammate (aka AI 1), 3 is AI 3,
+let ballTouches = 2;
 
 //controls server
 function servingControl(){ 

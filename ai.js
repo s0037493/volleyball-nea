@@ -11,6 +11,10 @@ class AI extends Player {
       
       this.iteration = iteration //0=user's teammate, //1 and 2 are other team. ai 1 is opposition team's first serving player
 
+
       }
 
+
+
+      
     }   
