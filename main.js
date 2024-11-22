@@ -95,7 +95,7 @@ function servingControl(){
         }
 
         if(serviceCollider==true){
-
+          //sets the ball so it sits just to the side of the user no matter where they rotate so it looks like it is being carried
           ball.setX(user.getX()+3.5*Math.sin(user.rotationRadians))
           ball.setZ(user.getZ()+1.6*Math.cos(user.rotationRadians))
           ball.setY(user.getY())
