@@ -63,13 +63,13 @@ scene.add(ball.mesh)
 
 //makes an AI
 let ai = [0,1,2] //player's teammate = 0, other two ai are 1 and 2
-ai[0] = new AI(playerDimensions, 'blue', 10, 5, -10, true, 0) // dimensions, colour,x,y,z, team(right=true), iteration
+ai[0] = new AI(playerDimensions, 'blue', 10, 5, -10, true) // dimensions, colour,x,y,z, team(right=true)
 scene.add(ai[0].mesh);
 
-ai[1] = new AI(playerDimensions, 'purple', -20, 5, 10, false, 1) //this is the AI that corresponds to the user, meaning it serves after the user.
+ai[1] = new AI(playerDimensions, 'purple', -20, 5, 10, false) //this is the AI that corresponds to the user, meaning it serves after the user.
 scene.add(ai[1].mesh)
 
-ai[2] = new AI(playerDimensions, 'green',-20, 5, -10, false, 2) //corresponds to the AI's teammate
+ai[2] = new AI(playerDimensions, 'green',-20, 5, -10, false) //corresponds to the AI's teammate
 scene.add(ai[2].mesh)
 
 //variables for serving
@@ -159,6 +159,10 @@ function render(){
 
   ball.getUpwardsVelocity()
   ball.getHorizontalVelocity()
+
+  ai[0].moveToBall()
+  ai[1].moveToBall()
+  ai[2].moveToBall()
 
   servingControl()
   cameraMovement()

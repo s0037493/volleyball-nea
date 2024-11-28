@@ -51,9 +51,9 @@ class Ball{
       this.setHorizontalVelocity(0)
       this.velocity=0
 
-      console.log("actual X : " + this.getX())
-      console.log("actual Y : " + this.getY())
-      console.log("actual Z : " + this.getZ())
+      // console.log("actual X : " + this.getX())
+      // console.log("actual Y : " + this.getY())
+      // console.log("actual Z : " + this.getZ())
     }
   }
 

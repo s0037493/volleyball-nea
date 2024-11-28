@@ -1,4 +1,4 @@
-function pTpAngle(playerA, playerB){ 
+function pTpAngle(playerA, playerB,toNet){ 
 
     let Aposition = []
     let Bposition = []
@@ -29,6 +29,14 @@ function pTpAngle(playerA, playerB){
       Bposition = [ai[2].getX(), ai[2].getY(), ai[2].getZ()]
     }
 
+    else if(playerB=="l"){
+      Bposition = [0, 5, 15]
+    }
+    else if(playerB=="r"){
+      Bposition = [0,5,-15]
+    }
+
+
     let AB = []
     let D = [0,0,1]
     let dotProduct = 0;
@@ -51,6 +59,7 @@ function pTpAngle(playerA, playerB){
       Theta = (2*pi) - Theta
     }
 
+    console.log(Theta)
     return Theta;
 }
 

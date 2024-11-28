@@ -1,9 +1,6 @@
-  let predictedX;
-  let predictedY;
-  let predictedZ;
-  
+ let predictedX, predictedY, predictedZ;
+ 
  function movementPrediction(){
-    console.log("rt")
       //Predicting the coordinates---------------------------------------------------------
       //every time this function runs, the below variables update so they are up to date when calculating prediction
       let predUpVelocity = ball.getUpwardsVelocity()
@@ -33,9 +30,9 @@
           if(predictedY<=1){ //once the ball is predicted to have hit the floor:
             predUpVelocity=0 //set our predicted velocity to 0 (so the whole prediction if statement stops running)
             //then give our predictions:
-            console.log("pred X : " + predictedX)
-            console.log("pred Y : " + predictedY)
-            console.log("pred Z : " + predictedZ)
+            // console.log("pred X : " + predictedX)
+            // console.log("pred Y : " + predictedY)
+            // console.log("pred Z : " + predictedZ)
 
             let predictedCoordinates = [predictedX, predictedY, predictedZ];
             return predictedCoordinates;
@@ -48,31 +45,63 @@
 
     function movementDecision(){
       let predictedCoordinates = movementPrediction()
-      let predictedX = predictedCoordinates[0]
-      let predictedZ = predictedCoordinates[2]
+      predictedX = predictedCoordinates[0]
+      predictedZ = predictedCoordinates[2]
 
-      if(predictedX>0){
-        if(lastTouch=0){ //user
-          return "a"
+      if(predictedX>0){//positive x = user's team
+        if(lastTouch==0){ //user 
+          console.log("user's ball")
         }
-        else if(lastTouch=2){ //user's teammate
-          return "c"
+        else if(lastTouch==2){ //user's teammate
+          ai[0].setpX(predictedX)
+          ai[0].setpZ(predictedZ)
+          ai[0].setTTM(true)
         }
         else{
           //find the closest player
           console.log(ABDistance("a","ball"))
+          console.log(ABDistance("b","ball"))
+          //moveToBall the closest player
         }
       }
 
-      else if(predictedX<0){
-        if(lastTouch=1){//correspond to user
-          return "b"
+      else if(predictedX<0){//negative x = NOT user's team
+        if(lastTouch==1){//corresponding ai of user
+          console.log(lastTouch)
+          ai[1].setpX(predictedX)
+          ai[1].setpZ(predictedZ)
+          ai[1].setTTM(true)
         }
-        else if(lastTouch=3){//their teammate
-          return "d"
+        else if(lastTouch==3){//their teammate
+          console.log("B")
+          ai[2].setpX(predictedX)
+          ai[2].setpZ(predictedZ)
+          ai[2].setTTM(true)
         }
         else{
           //find the closest player
+          console.log("C")
+          
+          let oneToBall = parseFloat(ABDistance("c","ball")) //the purple one
+          let twoToBall = parseFloat(ABDistance("d","ball")) //the green one
+
+          if(oneToBall <= twoToBall){
+            console.log("purple one is closer")
+            ai[1].setpX(predictedX)
+            ai[1].setpZ(predictedZ)
+            ai[1].setTTM(true)
+          }
+          else if(oneToBall>twoToBall){
+            console.log("green one is closer")
+            ai[2].setpX(predictedX)
+            ai[2].setpZ(predictedZ)
+            ai[2].setTTM(true)
+          }
+          else{
+            console.log("something has gone wrong here")
+            console.log(oneToBall)
+            console.log(twoToBall)
+          } 
         }
       }
   }

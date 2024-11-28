@@ -96,29 +96,17 @@ class User extends Player {
             //HORIZONTAL VELOCITY MANAGEMENT
             let ABdist = ABDistance("a", "b")
             console.log(ABdist)
-            if (ABdist <= 12) { //0 to 12
-               ball.setHorizontalVelocity(0.05)
-            }
-            else if (ABdist <= 18) { //13 to 18
-               ball.setHorizontalVelocity(0.1)
-            }
-            else if (ABdist <= 22) { //19 to 22
-               ball.setHorizontalVelocity(0.12)
-            }
-            else if (ABdist <= 26) { //23 to 26
-               ball.setHorizontalVelocity(0.14)
-            }
-            else if (ABdist <= 29) { //27 to 29 
-               ball.setHorizontalVelocity(0.16)
-            }
-            else if (ABdist >= 30) { //30 up
-               ball.setHorizontalVelocity(0.2)
-            }
+            if (ABdist <= 12) ball.setHorizontalVelocity(0.05)//0 to 12
+            else if (ABdist <= 18) ball.setHorizontalVelocity(0.1)//13 to 18
+            else if (ABdist <= 22) ball.setHorizontalVelocity(0.12)//19 to 22
+            else if (ABdist <= 26) ball.setHorizontalVelocity(0.14)//23 to 26
+            else if (ABdist <= 29) ball.setHorizontalVelocity(0.16)//27 to 29 
+            else if (ABdist >= 30) ball.setHorizontalVelocity(0.2)//30 up  
          }
 
          ball.setUpwardsRotation(0.87266463) //50 degrees
-         console.log("angle required is: " + pTpAngle("a", "b"))
-         ball.setHorizontalRotation(pTpAngle("a", "b"))
+         console.log("angle required is: " + pTpAngle("a", "l",false))
+         ball.setHorizontalRotation(pTpAngle("a", "l",false))
          movementPrediction()
       }
       ;
@@ -172,6 +160,7 @@ class User extends Player {
                gPressed = true;
                serving = false;
 
+               lastTouch=0
                movementPrediction()
                movementDecision()
             }
