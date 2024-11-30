@@ -63,13 +63,13 @@ scene.add(ball.mesh)
 
 //makes an AI
 let ai = [0,1,2] //player's teammate = 0, other two ai are 1 and 2
-ai[0] = new AI(playerDimensions, 'blue', 10, 5, -10, true) // dimensions, colour,x,y,z, team(right=true)
-scene.add(ai[0].mesh);
+ai[0] = new AI(playerDimensions, 'blue', 10, 5, -10, true, "b", "a") // dimensions, colour,x,y,z, team(right=true), letter, teammateletter
+scene.add(ai[0].mesh);  
 
-ai[1] = new AI(playerDimensions, 'purple', -20, 5, 10, false) //this is the AI that corresponds to the user, meaning it serves after the user.
+ai[1] = new AI(playerDimensions, 'purple', -20, 5, 10, false, "c", "d") //this is the AI that corresponds to the user, meaning it serves after the user.
 scene.add(ai[1].mesh)
 
-ai[2] = new AI(playerDimensions, 'green',-20, 5, -10, false) //corresponds to the AI's teammate
+ai[2] = new AI(playerDimensions, 'green',-20, 5, -10, false, "d", "c") //corresponds to the AI's teammate
 scene.add(ai[2].mesh)
 
 //variables for serving
@@ -80,7 +80,7 @@ let serviceCollider = true;
 let gPressed = false;
 
 let lastTouchTeam = false; //true is left, false is right
-let lastTouch = 0  //0 is user, 1 is AI 2, 2 is user's teammate (aka AI 1), 3 is AI 3,
+let lastTouch = "b"  //a is user, c=purple, b=blue, d=green
 let ballTouches = 2;
 
 //controls server
@@ -137,16 +137,29 @@ function servingControl(){
       }
     }
 
+    let keysPressedDown = [] //will store all of the keys that have been pressed
+
+    document.addEventListener('keydown', function(event){
+      keysPressedDown[event.key] = true //tells the array that the key that has been pressed is currently being pressed
+
+    document.addEventListener('keyup', function(event){
+      keysPressedDown[event.key] = false //tells the array that the key is no longer being pressed
+    })
+
+
+
+
+        // user.checkMovement(event.key)
+        // user.ballActions(event.key)
+    }) 
+    //these lines check what button is pressed, then do an output
 
 function render(){
   renderer.render(scene, camera);
   requestAnimationFrame(render);
 
-  window.onkeydown = function(pressedButton){ //uses HTML
-    user.checkMovement(pressedButton)
-    user.ballActions(pressedButton)
-
-  } //these lines check what button is pressed, then do an output
+  user.checkMovement()
+  user.ballActions()
 
   user.arrow()
   user.netCollider()
@@ -164,8 +177,31 @@ function render(){
   ai[1].moveToBall()
   ai[2].moveToBall()
 
+  ai[0].actionDecision()
+  ai[1].actionDecision()
+  ai[2].actionDecision()
+
+  ai[0].jumpPhysics()
+  ai[1].jumpPhysics()
+  ai[2].jumpPhysics()
+
+  ai[0].courtCollider()
+  ai[1].courtCollider()
+  ai[2].courtCollider()
+
+  ai[0].hit()
+  ai[1].hit()
+  ai[2].hit()
+
+
+
+  
+
+
   servingControl()
   cameraMovement()
+
+  rules()
 }
 
 render()

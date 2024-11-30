@@ -86,30 +86,26 @@ class Player extends Box {
       this.setY(newY)
 
       this.setUpwardsVelocity(this.getUpwardsVelocity()-0.011) //upward velocity should decrease fast (gravity)
-
     }
   }
 
   ballInRange(){
-    let XDistance = 2*(this.getX() - ball.getX())
+    let XDistance = (this.getX() - ball.getX())
     let YDistance = this.getY() - ball.getY()
-    let ZDistance = 2*(this.getZ() - ball.getZ())
+    let ZDistance = (this.getZ() - ball.getZ())
 
     let totalDistanceSquared = XDistance**2 + YDistance**2 + ZDistance**2 //pythagoras
     let distanceToBall = Math.sqrt(totalDistanceSquared) //pythagoras
 
     if(distanceToBall<8){
-      console.log("In range")
+      // console.log("In range")
       return true //ball is in range
     }
     else{
-      console.log("Out of range")
+      // console.log("Out of range")
       return false //ball out of range
     }
   }
-
-
-
   }
   
   

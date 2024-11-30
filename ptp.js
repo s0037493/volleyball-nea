@@ -36,6 +36,13 @@ function pTpAngle(playerA, playerB,toNet){
       Bposition = [0,5,-15]
     }
 
+    if(toNet==true){
+      if(playerA=="a" || playerA=="b"){
+        Bposition[0]= (3+Bposition[0])/2 //midpoint of just off net on right and teammate
+      }
+      else Bposition[0]=(-3+Bposition[0])/2 //midpoint of just off net on left and teammate
+    }
+
 
     let AB = []
     let D = [0,0,1]
@@ -59,9 +66,9 @@ function pTpAngle(playerA, playerB,toNet){
       Theta = (2*pi) - Theta
     }
 
-    console.log(Theta)
+    // console.log(Theta)
     return Theta;
-}
+  }
 
 
 function ABDistance(playerA,playerB){

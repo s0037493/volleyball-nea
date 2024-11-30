@@ -49,38 +49,50 @@
       predictedZ = predictedCoordinates[2]
 
       if(predictedX>0){//positive x = user's team
-        if(lastTouch==0){ //user 
+        if(lastTouch=="b"){ //last touch by user's teammate
           console.log("user's ball")
         }
-        else if(lastTouch==2){ //user's teammate
+        else if(lastTouch=="a"){ //last touch by user
           ai[0].setpX(predictedX)
           ai[0].setpZ(predictedZ)
           ai[0].setTTM(true)
         }
         else{
           //find the closest player
-          console.log(ABDistance("a","ball"))
-          console.log(ABDistance("b","ball"))
-          //moveToBall the closest player
+          
+          let oneToBall = parseFloat(ABDistance("a","ball")) //the purple one
+          let twoToBall = parseFloat(ABDistance("b","ball")) //the green one
+
+          if(oneToBall <= twoToBall){
+            console.log("user is closer")
+          }
+          else if(oneToBall>twoToBall){
+            console.log("blue one is closer")
+            ai[0].setpX(predictedX)
+            ai[0].setpZ(predictedZ)
+            ai[0].setTTM(true)
+          }
+          else{
+            console.log("something has gone wrong here")
+            console.log(oneToBall)
+            console.log(twoToBall)
+          } 
         }
       }
 
       else if(predictedX<0){//negative x = NOT user's team
-        if(lastTouch==1){//corresponding ai of user
-          console.log(lastTouch)
+        if(lastTouch=="d"){//last touch by the other ai
           ai[1].setpX(predictedX)
           ai[1].setpZ(predictedZ)
           ai[1].setTTM(true)
         }
-        else if(lastTouch==3){//their teammate
-          console.log("B")
+        else if(lastTouch=="c"){//last touch by ai corresponding to user
           ai[2].setpX(predictedX)
           ai[2].setpZ(predictedZ)
           ai[2].setTTM(true)
         }
         else{
           //find the closest player
-          console.log("C")
           
           let oneToBall = parseFloat(ABDistance("c","ball")) //the purple one
           let twoToBall = parseFloat(ABDistance("d","ball")) //the green one

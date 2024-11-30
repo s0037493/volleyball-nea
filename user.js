@@ -15,21 +15,21 @@ class User extends Player {
 
    }
 
-   checkMovement(input) { //method for user movement
-      if (input.key === "w") {  //w
-         this.mesh.position.z--;
+   checkMovement() { //method for user movement
+      if (keysPressedDown["w"] === true) {  //w
+         this.mesh.position.z = this.mesh.position.z - 2;
       };
 
-      if (input.keyCode == 65) {  //a
-         this.mesh.position.x--;
+      if (keysPressedDown["a"] === true) {  //a
+         this.mesh.position.x = this.mesh.position.x - 2;
       };
 
-      if (input.keyCode == 83) {  //s
-         this.mesh.position.z++;
+      if (keysPressedDown["s"] === true) {  //s
+         this.mesh.position.z = this.mesh.position.z + 2;
       };
 
-      if (input.keyCode == 68) {  //d
-         this.mesh.position.x++;
+      if (keysPressedDown["d"] === true) {  //d
+         this.mesh.position.x = this.mesh.position.x + 2;
 
          //the code below shouldn't really be here but is kept to test ball movements if necessary
 
@@ -43,14 +43,14 @@ class User extends Player {
       };
 
 
-      if (input.keyCode == 39) { //right arrow
+      if (keysPressedDown["ArrowRight"] === true) { //right arrow
          this.mesh.rotateY(-0.0625 * pi) //rotates by 1/32 of the circle every time pressed
          this.rotationDegrees = this.rotationDegrees - 11.25
          if (this.rotationDegrees == 360 || this.rotationDegrees == -360) {
             this.rotationDegrees = 0 //not strictly necessary, but sets a boundary from -360 to 360 for the angle.
          }
       }
-      if (input.keyCode == 37) { //left arrow
+      if (keysPressedDown["ArrowLeft"] === true) { //left arrow
          this.mesh.rotateY(0.0625 * pi) //rotates by 1/32 of the circle every time pressed
          this.rotationDegrees = this.rotationDegrees + 11.25
          if (this.rotationDegrees == 360 || this.rotationDegrees == -360) {
@@ -58,40 +58,53 @@ class User extends Player {
          }
       }
 
-      if (input.keyCode == 32 && this.getY() == 5) { //space and on the floor
+      if (keysPressedDown[" "] === true && this.getY() == 5) { //space and on the floor
          this.setUpwardsVelocity(0.65)
          this.setUpwardsRotation(pi / 2) //90 degrees
       }
    }
 
-   ballActions(input) {
-      if (input.keyCode == 69) {  //e, hit
+   ballActions() {
+      if (keysPressedDown["e"] === true) {  //e, hit
          if (this.ballInRange()) {
-            ball.iterations = 1
             ball.setUpwardsVelocity(0.3)
             ball.setHorizontalVelocity(0.5)
 
             ball.setUpwardsRotation(1.22173048)
             ball.setHorizontalRotation(this.rotationRadians)
             movementPrediction()
+
+            lastTouchTeam = false;
+            lastTouch="a"
+            ballTouches++
+            console.log(ballTouches+" touches")
+            
+            movementPrediction()
+            movementDecision()
          }
       };
 
-      if (input.keyCode == 82) {  //r, set
+      if (keysPressedDown["r"] === true) {  //r, set
          if (this.ballInRange()) {
-            ball.iterations = 1
             ball.setUpwardsVelocity(1.2)
             ball.setHorizontalVelocity(0.15)
 
             ball.setUpwardsRotation(1.22173048) //50 degrees
             ball.setHorizontalRotation(this.rotationRadians)
             movementPrediction()
+
+            lastTouchTeam = false;
+            lastTouch="a"
+            ballTouches++
+            console.log(ballTouches+" touches")
+            
+            movementPrediction()
+            movementDecision()
          }
       };
 
-      if (input.keyCode == 70) {  //f, pass (automatic angle)
+      if (keysPressedDown["f"] === true) {  //f, pass (automatic angle)
          if (this.ballInRange()) {
-            ball.iterations = 1
             ball.setUpwardsVelocity(1.5)
             //HORIZONTAL VELOCITY MANAGEMENT
             let ABdist = ABDistance("a", "b")
@@ -102,36 +115,42 @@ class User extends Player {
             else if (ABdist <= 26) ball.setHorizontalVelocity(0.14)//23 to 26
             else if (ABdist <= 29) ball.setHorizontalVelocity(0.16)//27 to 29 
             else if (ABdist >= 30) ball.setHorizontalVelocity(0.2)//30 up  
-         }
+         
 
          ball.setUpwardsRotation(0.87266463) //50 degrees
-         console.log("angle required is: " + pTpAngle("a", "l",false))
-         ball.setHorizontalRotation(pTpAngle("a", "l",false))
+         console.log("angle required is: " + pTpAngle("a", "b",false))
+         ball.setHorizontalRotation(pTpAngle("a", "b",true))
          movementPrediction()
+
+         lastTouchTeam = false;
+         lastTouch="a"
+         ballTouches++
+         console.log(ballTouches+" touches")
+         
+         movementPrediction()
+         movementDecision()
+         }
       }
       ;
 
-      if (input.keyCode === 80) {  //p, get predictions
+      if (keysPressedDown["p"] === true) {  //p, get predictions
          console.log(ball.getPredictedX())
          console.log(ball.getPredictedZ())
       }
 
-      if (input.keyCode === 76) {  //l, move the ball above user
+      if (keysPressedDown["l"] === true) {  //l, move the ball above user
          ball.setX(this.getX())
          ball.setY(this.getY() + 7)
          ball.setZ(this.getZ())
 
-
-         console.log(this.rotationDegrees + " user's current rotation")
       }
 
 
-      if (input.keyCode == 84) {  //t, toss
+      if (keysPressedDown["t"] === true) {  //t, toss
          if (servingPlayer == 0 && serving == true) {
             if (this.ballInRange()) {
                ball.setUpwardsVelocity(1)
                ball.setHorizontalVelocity(0)
-               ball.iterations = 1
 
                ball.setUpwardsRotation(1.22173048) //70 degrees
                ball.setHorizontalRotation(this.rotationRadians)
@@ -140,7 +159,7 @@ class User extends Player {
          }
       };
 
-      if (input.keyCode == 71) {  //g, serve
+      if (keysPressedDown["g"] === true) {  //g, serve
          if (servingPlayer == 0 & serving == true) {
             if (this.ballInRange()) {
 
@@ -160,7 +179,10 @@ class User extends Player {
                gPressed = true;
                serving = false;
 
-               lastTouch=0
+               lastTouchTeam = false;
+               lastTouch="a"
+               ballTouches++
+               
                movementPrediction()
                movementDecision()
             }

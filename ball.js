@@ -11,7 +11,6 @@ class Ball{
   this.upwardsRotation = 0
   this.horizontalRotation = 0
 
-  this.iterations = 1
   }
  
   ballPhysics(){
@@ -51,9 +50,11 @@ class Ball{
       this.setHorizontalVelocity(0)
       this.velocity=0
 
-      // console.log("actual X : " + this.getX())
-      // console.log("actual Y : " + this.getY())
-      // console.log("actual Z : " + this.getZ())
+      console.log(ballTouches+" touches")
+
+      console.log("actual X : " + this.getX())
+      console.log("actual Y : " + this.getY())
+      console.log("actual Z : " + this.getZ())
     }
   }
 
