@@ -64,11 +64,15 @@ class User extends Player {
       }
    }
 
-   ballActions(input) {
+   ballActions(input){
+
       if (input === "e") {  //e, hit
          if (this.ballInRange()) {
             ball.setUpwardsVelocity(0.3)
-            ball.setHorizontalVelocity(0.5)
+
+            if(ABDistance("a","ACTUALball")<=1.5) ball.setHorizontalVelocity(1.5)
+            else if(ABDistance("a","ACTUALball")<=4) ball.setHorizontalVelocity(1)
+            else ball.setHorizontalVelocity(0.5)
 
             ball.setUpwardsRotation(1.22173048)
             ball.setHorizontalRotation(this.rotationRadians)
@@ -77,8 +81,9 @@ class User extends Player {
             lastTouchTeam = false;
             lastTouch="a"
             ballTouches++
-            console.log(ballTouches+" touches")
             
+            console.log(ballTouches)
+
             movementPrediction()
             movementDecision()
          }
@@ -97,7 +102,6 @@ class User extends Player {
             lastTouchTeam = false;
             lastTouch="a"
             ballTouches++
-            console.log(ballTouches+" touches")
             
             movementPrediction()
             movementDecision()
@@ -109,24 +113,23 @@ class User extends Player {
             ball.setUpwardsVelocity(1.5)
             //HORIZONTAL VELOCITY MANAGEMENT
             let ABdist = ABDistance("a", "b")
-            console.log(ABdist)
+
             if (ABdist <= 12) ball.setHorizontalVelocity(0.05)//0 to 12
             else if (ABdist <= 18) ball.setHorizontalVelocity(0.1)//13 to 18
             else if (ABdist <= 22) ball.setHorizontalVelocity(0.12)//19 to 22
             else if (ABdist <= 26) ball.setHorizontalVelocity(0.14)//23 to 26
             else if (ABdist <= 29) ball.setHorizontalVelocity(0.16)//27 to 29 
             else if (ABdist >= 30) ball.setHorizontalVelocity(0.2)//30 up  
+            
          
 
          ball.setUpwardsRotation(0.87266463) //50 degrees
-         console.log("angle required is: " + pTpAngle("a", "b",false))
-         ball.setHorizontalRotation(pTpAngle("a", "b",true))
+         ball.setHorizontalRotation(pTpAngle("a", "b", false))
          movementPrediction()
 
          lastTouchTeam = false;
          lastTouch="a"
          ballTouches++
-         console.log(ballTouches+" touches")
          
          movementPrediction()
          movementDecision()
@@ -159,13 +162,11 @@ class User extends Player {
          if (servingPlayer == 0 & serving == true) {
             if (this.ballInRange()) {
 
-               if (this.getY() >= 7) {
-                  console.log("jump serve")
+               if (this.getY() >= 7) { //jump serve
                   ball.setUpwardsVelocity(0.6)
                   ball.setHorizontalVelocity(2.1)
                }
-               else {
-                  console.log("not a jump serve")
+               else { //standing serve
                   ball.setUpwardsVelocity(0.8)
                   ball.setHorizontalVelocity(1.8)
                }

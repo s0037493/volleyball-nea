@@ -29,11 +29,17 @@ function pTpAngle(playerA, playerB,toNet){
       Bposition = [ai[2].getX(), ai[2].getY(), ai[2].getZ()]
     }
 
-    else if(playerB=="l"){
-      Bposition = [0, 5, 15]
+    else if(playerB=="tl"){//top left
+      Bposition = [-47, 5, -20]
     }
-    else if(playerB=="r"){
-      Bposition = [0,5,-15]
+    else if(playerB=="tr"){//top right
+      Bposition = [47,5,-20]
+    }
+    else if(playerB=="bl"){//bottom left
+      Bposition = [-47, 5, 20]
+    }
+    else if(playerB=="br"){//bottom right
+      Bposition = [47,5, 20]
     }
 
     if(toNet==true){
@@ -87,6 +93,16 @@ function ABDistance(playerA,playerB){
     else if(playerA=="d"){
       Aposition = [ai[2].getX(), ai[2].getY(), ai[2].getZ()]
     }
+    else if(playerA=="bXZ"){
+      Aposition = [ai[0].getX(), 5, ai[0].getZ()]
+    }
+    else if(playerA=="cXZ"){
+      Aposition = [ai[1].getX(), 5, ai[1].getZ()]
+    }
+    else if(playerA=="dXZ"){
+      Aposition = [ai[2].getX(), 5, ai[2].getZ()]
+    }
+
 
     if(playerB=="a"){
       Bposition = [user.getX(), user.getY(), user.getZ()]
@@ -100,8 +116,14 @@ function ABDistance(playerA,playerB){
     else if(playerB=="d"){
       Bposition = [ai[2].getX(), ai[2].getY(), ai[2].getZ()]
     }
-    else if(playerB=="ball"){
+    else if(playerB=="ball"){ //distance to the ball's predicted position
       Bposition = [getPredictedX(),1,getPredictedZ()]
+    }
+    else if(playerB=="ACTUALball"){ //distance to the ball
+      Bposition = [ball.getX(),ball.getY(),ball.getZ()]
+    }
+    else if(playerB=="ACTUALballXZ"){ //distance to ball just on X-Z plane.
+      Bposition = [ball.getX(),5,ball.getZ()] //chose 5 as this is y-coord of a player on ground
     }
 
     let AB = []

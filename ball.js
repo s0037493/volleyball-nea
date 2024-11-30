@@ -51,10 +51,7 @@ class Ball{
       this.velocity=0
 
       console.log(ballTouches+" touches")
-
-      console.log("actual X : " + this.getX())
-      console.log("actual Y : " + this.getY())
-      console.log("actual Z : " + this.getZ())
+      window.alert("Ball has touched the floor.")
     }
   }
 

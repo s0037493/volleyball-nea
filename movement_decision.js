@@ -49,6 +49,7 @@
       predictedZ = predictedCoordinates[2]
 
       if(predictedX>0){//positive x = user's team
+        ai[0].mustPosition = false;
         if(lastTouch=="b"){ //last touch by user's teammate
           console.log("user's ball")
         }
@@ -64,23 +65,27 @@
           let twoToBall = parseFloat(ABDistance("b","ball")) //the green one
 
           if(oneToBall <= twoToBall){
-            console.log("user is closer")
+
           }
           else if(oneToBall>twoToBall){
-            console.log("blue one is closer")
             ai[0].setpX(predictedX)
             ai[0].setpZ(predictedZ)
             ai[0].setTTM(true)
           }
           else{
-            console.log("something has gone wrong here")
             console.log(oneToBall)
             console.log(twoToBall)
           } 
         }
+
+        //other team need to move to their base position
+        ai[1].mustPosition = true;
+        ai[2].mustPosition = true;
       }
 
       else if(predictedX<0){//negative x = NOT user's team
+        ai[1].mustPosition = false;
+        ai[2].mustPosition = false;
         if(lastTouch=="d"){//last touch by the other ai
           ai[1].setpX(predictedX)
           ai[1].setpZ(predictedZ)
@@ -94,27 +99,26 @@
         else{
           //find the closest player
           
-          let oneToBall = parseFloat(ABDistance("c","ball")) //the purple one
-          let twoToBall = parseFloat(ABDistance("d","ball")) //the green one
+          let oneToBall = parseFloat(ABDistance("cXZ","ball")) //the purple one
+          let twoToBall = parseFloat(ABDistance("dXZ","ball")) //the green one
 
           if(oneToBall <= twoToBall){
-            console.log("purple one is closer")
             ai[1].setpX(predictedX)
             ai[1].setpZ(predictedZ)
             ai[1].setTTM(true)
           }
           else if(oneToBall>twoToBall){
-            console.log("green one is closer")
             ai[2].setpX(predictedX)
             ai[2].setpZ(predictedZ)
             ai[2].setTTM(true)
           }
           else{
-            console.log("something has gone wrong here")
             console.log(oneToBall)
             console.log(twoToBall)
           } 
         }
+
+        ai[0].mustPosition = true;
       }
   }
 

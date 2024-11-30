@@ -63,7 +63,7 @@ scene.add(ball.mesh)
 
 //makes an AI
 let ai = [0,1,2] //player's teammate = 0, other two ai are 1 and 2
-ai[0] = new AI(playerDimensions, 'blue', 10, 5, -10, true, "b", "a") // dimensions, colour,x,y,z, team(right=true), letter, teammateletter
+ai[0] = new AI(playerDimensions, 'blue', 20, 5, 10, true, "b", "a") // dimensions, colour,x,y,z, team(right=true), letter, teammateletter
 scene.add(ai[0].mesh);  
 
 ai[1] = new AI(playerDimensions, 'purple', -20, 5, 10, false, "c", "d") //this is the AI that corresponds to the user, meaning it serves after the user.
@@ -74,23 +74,37 @@ scene.add(ai[2].mesh)
 
 //variables for serving
 let serving = true;
-let servingPlayer = 0; //0 is user, 1 is AI 2, 2 is user's teammate (aka AI 1), 3 is AI 3,
+let servingPlayer = 0 ; //0 is user, 1 is AI 2, 2 is user's teammate (aka AI 1), 3 is AI 3,
 let toMove = true;
 let serviceCollider = true;
 let gPressed = false;
 
-let lastTouchTeam = false; //true is left, false is right
-let lastTouch = "b"  //a is user, c=purple, b=blue, d=green
-let ballTouches = 2;
+
 
 //controls server
 function servingControl(){ 
     if(serving)
       if(servingPlayer == 0){
-
+        lastTouchTeam = false
+        lastTouch = "b"
+        ballTouches = 2
         if(toMove==true){
         user.setX(50)
         user.setZ(-10) //moves user to service line
+
+        ai[0].setX(20)
+        ai[0].setY(5)
+        ai[0].setZ(10)
+
+        ai[1].setX(-20)
+        ai[1].setY(5)
+        ai[1].setZ(10)
+
+        ai[2].setX(-20)
+        ai[2].setY(5)
+        ai[2].setZ(-10)
+
+
         toMove=false;
         }
 
@@ -123,17 +137,107 @@ function servingControl(){
         
       
       else if(servingPlayer==1){
-        console.log("ai 2 doesnt exist")
-      }
-      else if(servingPlayer==2){
-        if(toMove==true){
-          ai[0].setX(50)
-          ai[0].setZ(-10) 
+        lastTouchTeam = true
+        lastTouch = "d"
+        ballTouches = 2
+          if(toMove==true){
+          user.setX(20)
+          user.setY(5)
+          user.setZ(-10) //moves user to service line
+  
+          ai[0].setX(20)
+          ai[0].setY(5)
+          ai[0].setZ(10)
+  
+          ai[1].setX(-50)
+          ai[1].setY(5)
+          ai[1].setZ(10)
+  
+          ai[2].setX(-20)
+          ai[2].setY(5)
+          ai[2].setZ(-10)
+  
+  
           toMove=false;
           }
-        } 
+          if(serviceCollider==true){ //will be set to false once the ai serves
+            //sets the ball so it sits just to the side of the ai
+            ball.setX(ai[1].getX()+3.5)
+            ball.setZ(ai[1].getZ()+1.6)
+            ball.setY(ai[1].getY())
+            setTimeout(function() {
+              ai[1].serving()
+            },3000)
+          } 
+      }
+    
+      else if(servingPlayer==2){
+        lastTouchTeam = false
+        lastTouch = "a"
+        ballTouches = 2
+        if(toMove==true){
+          user.setX(20)
+          user.setY(5)
+          user.setZ(-10) //moves user to service line
+  
+          ai[0].setX(50)
+          ai[0].setY(5)
+          ai[0].setZ(10)
+  
+          ai[1].setX(-20)
+          ai[1].setY(5)
+          ai[1].setZ(10)
+  
+          ai[2].setX(-20)
+          ai[2].setY(5)
+          ai[2].setZ(-10)
+  
+  
+          toMove=false;
+        }
+        if(serviceCollider==true){ //will be set to false once the ai serves
+          //sets the ball so it sits just to the side of the ai
+          ball.setX(ai[0].getX()-3.5)
+          ball.setZ(ai[0].getZ()-1.6)
+          ball.setY(ai[0].getY())
+          setTimeout(function() {
+            ai[0].serving()
+          },3000)
+        }
+      } 
       else if(servingPlayer==3){
-        console.log("ai 3 doesnt exist")
+        lastTouchTeam = true
+        lastTouch = "c"
+        ballTouches = 2
+        if(toMove==true){
+          user.setX(20)
+          user.setY(5)
+          user.setZ(-10) //moves user to service line
+  
+          ai[0].setX(20)
+          ai[0].setY(5)
+          ai[0].setZ(10)
+  
+          ai[1].setX(-20)
+          ai[1].setY(5)
+          ai[1].setZ(10)
+  
+          ai[2].setX(-50)
+          ai[2].setY(5)
+          ai[2].setZ(-10)
+  
+  
+          toMove=false;
+        } 
+        if(serviceCollider==true){ //will be set to false once the ai serves
+          //sets the ball so it sits just to the side of the ai
+          ball.setX(ai[2].getX()+3.5)
+          ball.setZ(ai[2].getZ()+1.6)
+          ball.setY(ai[2].getY())
+          setTimeout(function() {
+            ai[2].serving()
+          },3000)
+        }
       }
     }
 
@@ -152,17 +256,6 @@ function servingControl(){
         keysPressedDown[event.key] = false //tells the array that the key is no longer being pressed
       }
     })
-
-
-
-
-
-
-
-        // user.checkMovement(event.key)
-        // user.ballActions(event.key)
-     
-    //these lines check what button is pressed, then do an output
 
 function render(){
   renderer.render(scene, camera);
@@ -202,6 +295,10 @@ function render(){
   ai[1].hit()
   ai[2].hit()
 
+  ai[0].defensivePosition()
+  ai[1].defensivePosition()
+  ai[2].defensivePosition()
+
 
 
   
@@ -214,4 +311,3 @@ function render(){
 }
 
 render()
-
