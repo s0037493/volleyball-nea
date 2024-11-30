@@ -131,35 +131,44 @@ function servingControl(){
           ai[0].setZ(-10) 
           toMove=false;
           }
-        }
+        } 
       else if(servingPlayer==3){
         console.log("ai 3 doesnt exist")
       }
     }
 
     let keysPressedDown = [] //will store all of the keys that have been pressed
+    let movementKeys = ["w","a","s","d","ArrowRight","ArrowLeft"," "]
 
     document.addEventListener('keydown', function(event){
-      keysPressedDown[event.key] = true //tells the array that the key that has been pressed is currently being pressed
+      if(movementKeys.includes(event.key)==true){ //only happens for movment keys; manages movement (multiple inputs):
+        keysPressedDown[event.key] = true //tells the array that the key that has been pressed is currently being pressed
+      }
+      user.ballActions(event.key) //this manages ball actions (single input)
+    })
 
     document.addEventListener('keyup', function(event){
-      keysPressedDown[event.key] = false //tells the array that the key is no longer being pressed
+      if(movementKeys.includes(event.key)==true){ //only happens for movement keys:
+        keysPressedDown[event.key] = false //tells the array that the key is no longer being pressed
+      }
     })
+
+
+
 
 
 
 
         // user.checkMovement(event.key)
         // user.ballActions(event.key)
-    }) 
+     
     //these lines check what button is pressed, then do an output
 
 function render(){
   renderer.render(scene, camera);
   requestAnimationFrame(render);
-
+  
   user.checkMovement()
-  user.ballActions()
 
   user.arrow()
   user.netCollider()

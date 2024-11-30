@@ -17,19 +17,19 @@ class User extends Player {
 
    checkMovement() { //method for user movement
       if (keysPressedDown["w"] === true) {  //w
-         this.mesh.position.z = this.mesh.position.z - 2;
+         this.mesh.position.z = this.mesh.position.z - 0.5;
       };
 
       if (keysPressedDown["a"] === true) {  //a
-         this.mesh.position.x = this.mesh.position.x - 2;
+         this.mesh.position.x = this.mesh.position.x - 0.5;
       };
 
       if (keysPressedDown["s"] === true) {  //s
-         this.mesh.position.z = this.mesh.position.z + 2;
+         this.mesh.position.z = this.mesh.position.z + 0.5;
       };
 
       if (keysPressedDown["d"] === true) {  //d
-         this.mesh.position.x = this.mesh.position.x + 2;
+         this.mesh.position.x = this.mesh.position.x + 0.5;
 
          //the code below shouldn't really be here but is kept to test ball movements if necessary
 
@@ -44,15 +44,15 @@ class User extends Player {
 
 
       if (keysPressedDown["ArrowRight"] === true) { //right arrow
-         this.mesh.rotateY(-0.0625 * pi) //rotates by 1/32 of the circle every time pressed
-         this.rotationDegrees = this.rotationDegrees - 11.25
+         this.mesh.rotateY(-1/128 * 2*pi) //rotates by 1/128 of the circle every time pressed
+         this.rotationDegrees = this.rotationDegrees - 360/128
          if (this.rotationDegrees == 360 || this.rotationDegrees == -360) {
             this.rotationDegrees = 0 //not strictly necessary, but sets a boundary from -360 to 360 for the angle.
          }
       }
       if (keysPressedDown["ArrowLeft"] === true) { //left arrow
-         this.mesh.rotateY(0.0625 * pi) //rotates by 1/32 of the circle every time pressed
-         this.rotationDegrees = this.rotationDegrees + 11.25
+         this.mesh.rotateY(1/128 * 2*pi) //rotates by 1/128 of the circle every time pressed
+         this.rotationDegrees = this.rotationDegrees + 360/128
          if (this.rotationDegrees == 360 || this.rotationDegrees == -360) {
             this.rotationDegrees = 0 //not strictly necessary, but sets a boundary from -360 to 360 for the angle.
          }
@@ -64,8 +64,8 @@ class User extends Player {
       }
    }
 
-   ballActions() {
-      if (keysPressedDown["e"] === true) {  //e, hit
+   ballActions(input) {
+      if (input === "e") {  //e, hit
          if (this.ballInRange()) {
             ball.setUpwardsVelocity(0.3)
             ball.setHorizontalVelocity(0.5)
@@ -84,8 +84,8 @@ class User extends Player {
          }
       };
 
-      if (keysPressedDown["r"] === true) {  //r, set
-         if (this.ballInRange()) {
+      if (input === "r") {  //r, set
+         if (this.ballInRange()){
             ball.setUpwardsVelocity(1.2)
             ball.setHorizontalVelocity(0.15)
 
@@ -93,6 +93,7 @@ class User extends Player {
             ball.setHorizontalRotation(this.rotationRadians)
             movementPrediction()
 
+            keysPressedDown["r"]===false
             lastTouchTeam = false;
             lastTouch="a"
             ballTouches++
@@ -103,7 +104,7 @@ class User extends Player {
          }
       };
 
-      if (keysPressedDown["f"] === true) {  //f, pass (automatic angle)
+      if (input === "f") {  //f, pass (automatic angle)
          if (this.ballInRange()) {
             ball.setUpwardsVelocity(1.5)
             //HORIZONTAL VELOCITY MANAGEMENT
@@ -133,12 +134,7 @@ class User extends Player {
       }
       ;
 
-      if (keysPressedDown["p"] === true) {  //p, get predictions
-         console.log(ball.getPredictedX())
-         console.log(ball.getPredictedZ())
-      }
-
-      if (keysPressedDown["l"] === true) {  //l, move the ball above user
+      if (input === "l") {  //l, move the ball above user
          ball.setX(this.getX())
          ball.setY(this.getY() + 7)
          ball.setZ(this.getZ())
@@ -146,7 +142,7 @@ class User extends Player {
       }
 
 
-      if (keysPressedDown["t"] === true) {  //t, toss
+      if (input === "t") {  //t, toss
          if (servingPlayer == 0 && serving == true) {
             if (this.ballInRange()) {
                ball.setUpwardsVelocity(1)
@@ -159,7 +155,7 @@ class User extends Player {
          }
       };
 
-      if (keysPressedDown["g"] === true) {  //g, serve
+      if (input === "g") {  //g, serve
          if (servingPlayer == 0 & serving == true) {
             if (this.ballInRange()) {
 
