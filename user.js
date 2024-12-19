@@ -10,9 +10,7 @@ class User extends Player {
       this.mesh.position.z = inputZ
 
       this.rotationDegrees = 270 //defaults at 270
-
-
-
+      
    }
 
    checkMovement() { //method for user movement
@@ -110,7 +108,7 @@ class User extends Player {
 
       if (input === "f") {  //f, pass (automatic angle)
          if (this.ballInRange()) {
-            ball.setUpwardsVelocity(1.5)
+            ball.setUpwardsVelocity(1.2)
             //HORIZONTAL VELOCITY MANAGEMENT
             let ABdist = ABDistance("a", "b")
 
@@ -141,6 +139,14 @@ class User extends Player {
          ball.setX(this.getX())
          ball.setY(this.getY() + 7)
          ball.setZ(this.getZ())
+
+         ai[0].setX(5)
+         ai[0].setY(5)
+         ai[0].setZ(0)
+
+         lastTouch = "d"
+         ballTouches = 0 
+         lastTouchTeam = true
 
       }
 
@@ -187,8 +193,6 @@ class User extends Player {
       };
 
    };
-
-
 
    arrow() {
       scene.remove(pointerArrow) //removes old arrow

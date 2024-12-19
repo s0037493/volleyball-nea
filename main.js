@@ -22,8 +22,10 @@ function cameraMovement(){
       }
   }
   else if(serving==false){
-      camera.position.y=40
-      camera.position.z=40
+    camera.position.x= 1
+    camera.position.z = 40
+    camera.position.y = 40
+
   }
   }
 
@@ -58,8 +60,36 @@ let pointerArrow = new THREE.ArrowHelper( dir, origin, length, colour );
 
 //makes ball
 let ballDimensions = new THREE.SphereGeometry(1.5,32,16) //radius, width segments, height segments
+
+let shadowmaterial = new THREE.MeshBasicMaterial({color: 'black'})
+let shadowgeometry = new THREE.CircleGeometry(1.5,22)
+let shadowmesh = new THREE.Mesh(shadowgeometry, shadowmaterial);
+shadowmesh.rotateX(Math.PI/2)
+
+
+Object.defineProperties(shadowmesh.position, {
+  x: {
+    get: () => ball.getX()
+  },
+
+  y: {
+    get:() => 1
+  },
+
+  z: {
+    get: () => ball.getZ()
+  }
+}
+)
+
+
+console.log(shadowmesh)
+
+
+
 let ball = new Ball(ballDimensions, 'lightgrey', 9.5, 5, 10,) //dimensions, colour, x, y, z
 scene.add(ball.mesh)
+scene.add(shadowmesh)
 
 //makes an AI
 let ai = [0,1,2] //player's teammate = 0, other two ai are 1 and 2
@@ -83,7 +113,7 @@ let gPressed = false;
 
 //controls server
 function servingControl(){ 
-    if(serving)
+    if(serving==true){
       if(servingPlayer == 0){
         lastTouchTeam = false
         lastTouch = "b"
@@ -240,6 +270,7 @@ function servingControl(){
         }
       }
     }
+    }
 
     let keysPressedDown = [] //will store all of the keys that have been pressed
     let movementKeys = ["w","a","s","d","ArrowRight","ArrowLeft"," "]
@@ -275,34 +306,18 @@ function render(){
   ball.getUpwardsVelocity()
   ball.getHorizontalVelocity()
 
-  ai[0].moveToBall()
-  ai[1].moveToBall()
-  ai[2].moveToBall()
-
-  ai[0].actionDecision()
-  ai[1].actionDecision()
-  ai[2].actionDecision()
-
-  ai[0].jumpPhysics()
-  ai[1].jumpPhysics()
-  ai[2].jumpPhysics()
-
-  ai[0].courtCollider()
-  ai[1].courtCollider()
-  ai[2].courtCollider()
-
-  ai[0].hit()
-  ai[1].hit()
-  ai[2].hit()
-
-  ai[0].defensivePosition()
-  ai[1].defensivePosition()
-  ai[2].defensivePosition()
+  // ai.forEach(x => x.moveToBall())
+  // ai[1].moveToBall()
+  // ai[2].moveToBall()
 
 
-
-  
-
+  ai.forEach(x => {x.moveToBall()
+    x.actionDecision()
+    x.jumpPhysics()
+    x.courtCollider()
+    x.hit()
+    x.defensivePosition()
+  })
 
   servingControl()
   cameraMovement()

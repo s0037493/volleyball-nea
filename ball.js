@@ -17,6 +17,7 @@ class Ball{
     if(this.upwardsVelocity != 0){
       let newX = this.getX() + Math.sin(this.horizontalRotation)*this.horizontalVelocity //calculate change to x
       this.setX(newX) //update x
+
       let newZ = this.getZ() + Math.cos(this.horizontalRotation)*this.horizontalVelocity //calculate change to z
       this.setZ(newZ) //update z
       if(this.horizontalVelocity>=0.6) //give a baseline for the horizontal velocity as it works well and ensures that it never gets negative

@@ -4,7 +4,7 @@ class AI extends Player {
       super(inputDimensions, inputColour, team) //gives shape dimensions and colour using code from Box class. Also sets which team player is on.
         //if team=true, then player is on right. if false, left.
       this.mesh = new THREE.Mesh(this.geometry, this.material);
-      
+
       this.mesh.position.x = inputX;
       this.mesh.position.y = inputY
       this.mesh.position.z = inputZ
@@ -18,6 +18,8 @@ class AI extends Player {
       this.teammateLetter = tl;
       
       this.mustPosition = false;
+
+      this.choice;
       }
 
       defensivePosition(){
@@ -46,8 +48,6 @@ class AI extends Player {
             }
         }
       
-      
-
       moveToBall(){ //input predicted X, predicted 
         // console.log(this.pX +" "+this.letter)
         // console.log(this.pZ +" "+this.letter)
@@ -80,7 +80,6 @@ class AI extends Player {
           }
         }
       
-
       actionDecision(){
         if(this.makeAction == true){ //if moveToBall function says to play the ball
 
@@ -93,6 +92,7 @@ class AI extends Player {
         }
         else if(ballTouches == 2){ // && (Math.abs(getPredictedX()<23))
           if(ball.getY()>7&& ABDistance(this.letter, "ACTUALballXZ")<8){
+            this.choice=Math.floor(Math.random()*4)
             this.allowedToHit = true; //(function must include makeAction = false)
           }
           else{
@@ -103,10 +103,8 @@ class AI extends Player {
       }
     }
 
-
-
     pass(){
-      ball.setUpwardsVelocity(1.5)
+      ball.setUpwardsVelocity(1.2)
       //HORIZONTAL VELOCITY MANAGEMENT
       let ABdist = ABDistance(this.letter, this.teammateLetter)
       if (ABdist <= 12) ball.setHorizontalVelocity(0.05)//0 to 12
@@ -131,13 +129,22 @@ class AI extends Player {
 
     set(){
       let ABdist = ABDistance(this.letter, this.teammateLetter)
-      if (ABdist <= 12) ball.setHorizontalVelocity(0.13)//0 to 12
-      else if (ABdist <= 18) ball.setHorizontalVelocity(0.15)//13 to 18
-      else if (ABdist <= 22) ball.setHorizontalVelocity(0.17)//19 to 22
-      else if (ABdist <= 26) ball.setHorizontalVelocity(0.18)//23 to 26
-      else if (ABdist <= 29) ball.setHorizontalVelocity(0.2)//27 to 29 
-      else if (ABdist > 29) ball.setHorizontalVelocity(0.23)//30 up    
-      ball.setUpwardsVelocity(1.2)
+      
+      if (ABdist <=7){
+        ball.setHorizontalVelocity(0.1)
+        ball.setUpwardsVelocity(0.8)
+      }
+
+      else{
+        if (ABdist <= 12) ball.setHorizontalVelocity(0.13)//0 to 12
+        else if (ABdist <= 18) ball.setHorizontalVelocity(0.15)//13 to 18
+        else if (ABdist <= 22) ball.setHorizontalVelocity(0.17)//19 to 22
+        else if (ABdist <= 26) ball.setHorizontalVelocity(0.18)//23 to 26
+        else if (ABdist <= 29) ball.setHorizontalVelocity(0.2)//27 to 29 
+        else if (ABdist > 29) ball.setHorizontalVelocity(0.23)//30 up    
+        ball.setUpwardsVelocity(1.2)
+      }
+
       ball.setUpwardsRotation(1.22173048) //50 degrees
       ball.setHorizontalRotation(pTpAngle(this.letter, this.teammateLetter,true))
       console.log("Setting" + this.letter)
@@ -161,7 +168,7 @@ class AI extends Player {
       //hit
       if(this.ballInRange() == true){
       ball.setUpwardsVelocity(0.25)
-      ball.setHorizontalVelocity(1)
+      ball.setHorizontalVelocity((Math.random()+ 1)/2)
       ball.setUpwardsRotation(1.22173048) //50 degrees
 
       if(this.letter=="b"){
@@ -191,12 +198,18 @@ class AI extends Player {
 
     serving(){
       if(this.ballInRange()){
-        this.choice = Math.floor(Math.random()*4)
+
       if(this.choice==0){ //standing serve
 
         console.log("Stand")
-        this.boundOne = pTpAngle(this.letter, "l", false)
-        this.boundTwo = pTpAngle(this.letter, "r", false)
+        if(this.letter=="b"){
+          this.boundOne = pTpAngle(this.letter, "tl", false)
+          this.boundTwo = pTpAngle(this.letter, "bl", false)
+        }
+        else if(this.letter=="c"||this.letter=="d"){
+          this.boundOne = pTpAngle(this.letter, "tr", false)
+          this.boundTwo = pTpAngle(this.letter, "br", false)
+        }
         if(this.boundOne<this.boundTwo) this.chosenAngle = Math.random() * (this.boundTwo - this.boundOne) + this.boundOne //if max=boundTwo, generate random
         else this.chosenAngle = Math.random() * (this.boundTwo - this.boundOne) + this.boundOne //if max=boundOne, generate random
         ball.setHorizontalRotation(this.chosenAngle) //set the random angle
@@ -207,10 +220,13 @@ class AI extends Player {
 
         serviceCollider = false;
         serving = false;
-        lastTouchTeam = false;
-        lastTouch=this.letter
-        ballTouches++
-               
+
+        lastTouchTeam = true;
+        lastTouch = this.letter;
+        ballTouches++;
+        this.timeToMove = false;
+        this.makeAction = false;
+        
         movementPrediction()
         movementDecision()
       }
@@ -220,6 +236,7 @@ class AI extends Player {
         console.log("Jump")
         if(this.ballInRange() && this.getY()==5) {
           serviceCollider = false;
+          serving = false;
           ball.setUpwardsVelocity(1)
           ball.setHorizontalVelocity(0)
           ball.setUpwardsRotation(1.22173048) //70 degrees
@@ -230,26 +247,34 @@ class AI extends Player {
        }
 
         if(this.ballInRange() && this.getY()>20){
-          this.boundOne = pTpAngle(this.letter, "l", false)
-          this.boundTwo = pTpAngle(this.letter, "r", false)
+          console.log(("GO"))
+          if(this.letter=="b"){
+            this.boundOne = pTpAngle(this.letter, "tl", false)
+            this.boundTwo = pTpAngle(this.letter, "bl", false)
+          }
+          else if(this.letter=="c"||this.letter=="d"){
+            this.boundOne = pTpAngle(this.letter, "tr", false)
+            this.boundTwo = pTpAngle(this.letter, "br", false)
+          }
           if(this.boundOne<this.boundTwo) this.chosenAngle = Math.random() * (this.boundTwo - this.boundOne) + this.boundOne //if max=boundTwo, generate random
           else this.chosenAngle = Math.random() * (this.boundTwo - this.boundOne) + this.boundOne //if max=boundOne, generate random
           ball.setHorizontalRotation(this.chosenAngle) //set the random angle
+          console.log(this.chosenAngle)
   
           ball.setUpwardsVelocity(0.6)
           ball.setHorizontalVelocity(2.1)
           ball.setUpwardsRotation(0.87266463) //50 degrees
   
-          serviceCollider = false;
           serving = false;
-          lastTouchTeam = false;
-          lastTouch=this.letter
-          ballTouches++
-                 
+
+          lastTouchTeam = true;
+          lastTouch = this.letter;
+          ballTouches++;
+          this.timeToMove = false;
+          this.makeAction = false;
+
           movementPrediction()
           movementDecision()
-
-          this.mustPosition = true;
 
         }
 
@@ -259,8 +284,6 @@ class AI extends Player {
 
       
     }
-
-
 
       setpX(input){
         this.pX = input;
