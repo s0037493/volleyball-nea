@@ -65,7 +65,25 @@ class User extends Player {
    ballActions(input){
 
       if (input === "e") {  //e, hit
-         if (this.ballInRange()) {
+         if (this.ballInRangeBlockingEdition() && (ballTouches==0 || ballTouches == 3)) { //last touch came from left team (block)
+            ball.setUpwardsVelocity(0.3)
+            ball.setHorizontalVelocity(0.3)
+            ball.setUpwardsRotation(1.22173048)
+            ball.setHorizontalRotation(this.rotationRadians)
+            movementPrediction()
+
+            lastTouchTeam = false;
+            lastTouch="a"
+            ballTouches++
+            
+            console.log(ballTouches)
+
+            movementPrediction()
+            movementDecision()
+
+            console.log("Block")
+         }
+         else if (this.ballInRange() && (ballTouches==1 || ballTouches == 2)) { //last touch came from right team (hit)
             ball.setUpwardsVelocity(0.3)
 
             if(ABDistance("a","ACTUALball")<=1.5) ball.setHorizontalVelocity(1.5)
@@ -206,6 +224,24 @@ class User extends Player {
 
       scene.add(pointerArrow)
    }
+
+   ballInRangeBlockingEdition(){
+      let XDistance = (this.getX() - ball.getX())
+      let YDistance = this.getY() - ball.getY()
+      let ZDistance = (this.getZ() - ball.getZ())
+  
+      let totalDistanceSquared = XDistance**2 + YDistance**2 + ZDistance**2 //pythagoras
+      let distanceToBall = Math.sqrt(totalDistanceSquared) //pythagoras
+  
+      if(distanceToBall<4){
+        // console.log("In range")
+        return true //ball is in range
+      }
+      else{
+        // console.log("Out of range")
+        return false //ball out of range
+      }
+    }
 
 
 

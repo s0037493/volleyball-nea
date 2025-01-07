@@ -92,7 +92,6 @@ class AI extends Player {
         }
         else if(ballTouches == 2){ // && (Math.abs(getPredictedX()<23))
           if(ball.getY()>7&& ABDistance(this.letter, "ACTUALballXZ")<8){
-            this.choice=Math.floor(Math.random()*4)
             this.allowedToHit = true; //(function must include makeAction = false)
           }
           else{
@@ -163,6 +162,7 @@ class AI extends Player {
       if(this.getY()==5){
       this.setUpwardsVelocity(0.55)
       this.setUpwardsRotation(pi / 2) //90 degrees
+      setTimeout(this.noHit(),1500)
       }
 
       //hit
@@ -193,7 +193,16 @@ class AI extends Player {
       movementPrediction()
       movementDecision()  
       }
+
       }
+    }
+
+    noHit(){
+      this.timeToMove = false;
+      this.makeAction = false;
+      this.allowedToHit = false;
+      movementPrediction()
+      movementDecision()  
     }
 
     serving(){

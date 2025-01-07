@@ -108,7 +108,8 @@ let servingPlayer = 0 ; //0 is user, 1 is AI 2, 2 is user's teammate (aka AI 1),
 let toMove = true;
 let serviceCollider = true;
 let gPressed = false;
-
+let lastTouchTeam;
+let lastTouch;
 
 
 //controls server
@@ -173,7 +174,7 @@ function servingControl(){
           if(toMove==true){
           user.setX(20)
           user.setY(5)
-          user.setZ(-10) //moves user to service line
+          user.setZ(-10) 
   
           ai[0].setX(20)
           ai[0].setY(5)
@@ -181,7 +182,8 @@ function servingControl(){
   
           ai[1].setX(-50)
           ai[1].setY(5)
-          ai[1].setZ(10)
+          ai[1].setZ(10) //moves to service line
+          ai[1].choice=Math.floor(Math.random()*4)
   
           ai[2].setX(-20)
           ai[2].setY(5)
@@ -208,11 +210,12 @@ function servingControl(){
         if(toMove==true){
           user.setX(20)
           user.setY(5)
-          user.setZ(-10) //moves user to service line
+          user.setZ(-10) 
   
           ai[0].setX(50)
           ai[0].setY(5)
-          ai[0].setZ(10)
+          ai[0].setZ(10) //moves to service line
+          ai[0].choice=Math.floor(Math.random()*4)
   
           ai[1].setX(-20)
           ai[1].setY(5)
@@ -242,7 +245,7 @@ function servingControl(){
         if(toMove==true){
           user.setX(20)
           user.setY(5)
-          user.setZ(-10) //moves user to service line
+          user.setZ(-10)
   
           ai[0].setX(20)
           ai[0].setY(5)
@@ -254,7 +257,8 @@ function servingControl(){
   
           ai[2].setX(-50)
           ai[2].setY(5)
-          ai[2].setZ(-10)
+          ai[2].setZ(-10) //moves to service line
+          ai[2].choice=Math.floor(Math.random()*4)
   
   
           toMove=false;
