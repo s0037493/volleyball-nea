@@ -1,3 +1,4 @@
+
 const pi = Math.PI
 
 const scene = new THREE.Scene();
@@ -29,16 +30,46 @@ function cameraMovement(){
   }
   }
 
+
 //setting up the renderer
 const renderer = new THREE.WebGLRenderer({ antialias: true, });
 renderer.setSize(window.innerWidth-(window.innerWidth/150), window.innerHeight-50);
 renderer.setClearColor('skyblue');
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.BasicShadowMap;
 document.body.appendChild(renderer.domElement);
 
+var light = new THREE.DirectionalLight(0xFFFFFF, 1);
+light.position.set(-40, 100, 10);
+light.target.position.set(0, 0, 0);
+light.shadow.camera.top = 50;
+light.shadow.camera.bottom = -50;
+light.shadow.camera.left = -50;
+light.shadow.camera.right = 50;
+light.shadow.camera.near = 0.5;
+light.shadow.camera.far = 500;
+light.castShadow = true;
+scene.add(light);
+
+const helper = new THREE.CameraHelper( light.shadow.camera );
+scene.add( helper );
+
 //makes court
-let courtDimensions = new THREE.BoxGeometry(90,0.1,30)
+let courtDimensions = new THREE.PlaneGeometry(90,30)
 let court = new Box(courtDimensions, 'khaki')
+court.mesh.rotateX(3*pi/2)
+court.mesh.receiveShadow = true;
+
 scene.add(court.mesh);
+
+
+  let floorDimensions = new THREE.PlaneGeometry(1600,100)
+  let floor = new Box(floorDimensions, 'lightgreen')
+  floor.mesh.position.set(0,-0.001,0)
+  floor.mesh.rotateX(-pi/2)
+  floor.mesh.receiveShadow = true;
+
+  scene.add(floor.mesh)
 
 //makes net
 let netDimensions = new THREE.BoxGeometry(0.5,15,30)
@@ -60,36 +91,9 @@ let pointerArrow = new THREE.ArrowHelper( dir, origin, length, colour );
 
 //makes ball
 let ballDimensions = new THREE.SphereGeometry(1.5,32,16) //radius, width segments, height segments
+let ball = new Ball(ballDimensions, 'orange', 9.5, 5, 10,) //dimensions, colour, x, y, z
 
-let shadowmaterial = new THREE.MeshBasicMaterial({color: 'black'})
-let shadowgeometry = new THREE.CircleGeometry(1.5,22)
-let shadowmesh = new THREE.Mesh(shadowgeometry, shadowmaterial);
-shadowmesh.rotateX(Math.PI/2)
-
-
-Object.defineProperties(shadowmesh.position, {
-  x: {
-    get: () => ball.getX()
-  },
-
-  y: {
-    get:() => 1
-  },
-
-  z: {
-    get: () => ball.getZ()
-  }
-}
-)
-
-
-console.log(shadowmesh)
-
-
-
-let ball = new Ball(ballDimensions, 'lightgrey', 9.5, 5, 10,) //dimensions, colour, x, y, z
 scene.add(ball.mesh)
-scene.add(shadowmesh)
 
 //makes an AI
 let ai = [0,1,2] //player's teammate = 0, other two ai are 1 and 2
@@ -103,13 +107,14 @@ ai[2] = new AI(playerDimensions, 'green',-20, 5, -10, false, "d", "c") //corresp
 scene.add(ai[2].mesh)
 
 //variables for serving
-let serving = true;
-let servingPlayer = 0 ; //0 is user, 1 is AI 2, 2 is user's teammate (aka AI 1), 3 is AI 3,
-let toMove = true;
-let serviceCollider = true;
-let gPressed = false;
-let lastTouchTeam;
-let lastTouch;
+var serving = true;
+var servingPlayer = 0 ; //0 is user, 1 is AI 2, 2 is user's teammate (aka AI 1), 3 is AI 3,
+var toMove = true;
+var serviceCollider = true;
+var gPressed = false;
+var lastTouchTeam;
+var lastTouch;
+
 
 
 //controls server
@@ -276,8 +281,8 @@ function servingControl(){
     }
     }
 
-    let keysPressedDown = [] //will store all of the keys that have been pressed
-    let movementKeys = ["w","a","s","d","ArrowRight","ArrowLeft"," "]
+    keysPressedDown = [] //will store all of the keys that have been pressed
+    var movementKeys = ["w","a","s","d","ArrowRight","ArrowLeft"," "]
 
     document.addEventListener('keydown', function(event){
       if(movementKeys.includes(event.key)==true){ //only happens for movment keys; manages movement (multiple inputs):
@@ -330,3 +335,7 @@ function render(){
 }
 
 render()
+
+
+
+

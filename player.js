@@ -1,4 +1,4 @@
-class Player extends Box {
+class Player extends Box{
 
   constructor(inputDimensions, inputColour, team){
     super(inputDimensions, inputColour) //gives shape dimensions and colour using code from Box class

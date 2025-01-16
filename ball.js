@@ -2,8 +2,11 @@ class Ball{
   
   constructor(inputSphereDimensions, inputColour, inputX, inputY, inputZ){
   this.geometry = inputSphereDimensions; //radius, width segments, height segments
-  this.material = new THREE.MeshBasicMaterial({ color: inputColour })
+  this.material = new THREE.MeshStandardMaterial({ color: inputColour })
   this.mesh = new THREE.Mesh(this.geometry, this.material);
+  this.mesh.receiveShadow = true;
+  this.mesh.castShadow = true;
+
   this.mesh.position.set(inputX,inputY,inputZ);
 
   this.horizontalVelocity = 0
