@@ -49,6 +49,8 @@ class AI extends Player {
           }
             }
         }
+
+        console.log("hi")
       
       moveToBall(){ //input predicted X, predicted 
         // console.log(this.pX +" "+this.letter)
