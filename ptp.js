@@ -48,10 +48,10 @@ function pTpAngle(playerA, playerB,toNet){
       }
       else Bposition[0]=(-3+Bposition[0])/2 //midpoint of just off net on left and teammate
 
-      if(playerA=="c" || playerA=="d"){
-        Bposition[0]= (-3+Bposition[0])/2 //midpoint of just off net on right and teammate
-      }
-      else Bposition[0]=(3+Bposition[0])/2 //midpoint of just off net on left and teammate
+      // if(playerA=="c" || playerA=="d"){
+      //   Bposition[0]= (-3+Bposition[0])/2 //midpoint of just off net on right and teammate
+      // }
+      // else Bposition[0]=(3+Bposition[0])/2 //midpoint of just off net on left and teammate
     }
 
 

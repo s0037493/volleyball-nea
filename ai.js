@@ -72,7 +72,7 @@ class AI extends Player {
             this.setZ(this.getZ()-0.15)
           }
 
-          if(Math.sqrt((this.getX()-this.pX)**2 - (this.getZ()-this.pZ)**2) < 3){ //check if the ball is in range on X and Z axes.
+          if(Math.sqrt((this.getX()-this.pX)**2 + (this.getZ()-this.pZ)**2) < 3){ //check if the ball is in range on X and Z axes.
 
           // if(Math.abs(this.getX()-this.pX <= 2)){//if the AI is in range of ball based on x
           //   if(Math.abs(this.getZ()-this.pZ <= 2)){//if the AI is in range of ball based on z
