@@ -26,9 +26,9 @@ class AI extends Player {
 
       defensivePosition(){
         if(this.mustPosition == true){
-          if(this.letter=="b") this.basePosition = [20,10]
-          else if(this.letter=="c") this.basePosition=[-20,10]
-          else if(this.letter=="d") this.basePosition=[-20,-10]
+          if(this.letter=="b") this.basePosition = [24,10]
+          else if(this.letter=="c") this.basePosition=[-24,10]
+          else if(this.letter=="d") this.basePosition=[-24,-10]
 
           if(this.basePosition[0]>this.getX()){//if the position has higher x coord than ai:
             this.setX(this.getX()+0.15)//increase x
@@ -57,10 +57,10 @@ class AI extends Player {
         if(this.timeToMove==true){//while the AI is not at the ball:
 
           if(this.pX>this.getX()){//if the ball has higher x coord than ai:
-            this.setX(this.getX()+0.15)//increase x
+            this.setX(this.getX()+0.20)//increase x
           }
           else if(this.pX<this.getX()){//if the ball has lower x coord than ai:
-            this.setX(this.getX()-0.15)//decrease x
+            this.setX(this.getX()-0.20)//decrease x
           }
 
           if(this.pZ>this.getZ()){//same as X
@@ -70,7 +70,7 @@ class AI extends Player {
             this.setZ(this.getZ()-0.15)
           }
 
-          if(Math.sqrt((this.getX()-this.pX)**2 - (this.getZ()-this.pZ)**2) < 4){ //check if the ball is in range on X and Z axes.
+          if(Math.sqrt((this.getX()-this.pX)**2 - (this.getZ()-this.pZ)**2) < 3){ //check if the ball is in range on X and Z axes.
 
           // if(Math.abs(this.getX()-this.pX <= 2)){//if the AI is in range of ball based on x
           //   if(Math.abs(this.getZ()-this.pZ <= 2)){//if the AI is in range of ball based on z

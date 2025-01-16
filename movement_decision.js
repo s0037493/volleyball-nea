@@ -102,12 +102,17 @@
           let oneToBall = parseFloat(ABDistance("cXZ","ball")) //the purple one
           let twoToBall = parseFloat(ABDistance("dXZ","ball")) //the green one
 
-          if(oneToBall <= twoToBall){
+          if(oneToBall < twoToBall){
             ai[1].setpX(predictedX)
             ai[1].setpZ(predictedZ)
             ai[1].setTTM(true)
           }
           else if(oneToBall>twoToBall){
+            ai[2].setpX(predictedX)
+            ai[2].setpZ(predictedZ)
+            ai[2].setTTM(true)
+          }
+          else if(oneToBall==twoToBall){
             ai[2].setpX(predictedX)
             ai[2].setpZ(predictedZ)
             ai[2].setTTM(true)
