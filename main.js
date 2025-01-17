@@ -1,4 +1,5 @@
 
+
 const pi = Math.PI
 
 const scene = new THREE.Scene();
@@ -39,37 +40,44 @@ renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.BasicShadowMap;
 document.body.appendChild(renderer.domElement);
 
-var light = new THREE.DirectionalLight(0xFFFFFF, 1);
+let light = new THREE.DirectionalLight(0xFFFFFF, 1);
 light.position.set(-40, 100, 10);
 light.target.position.set(0, 0, 0);
 light.shadow.camera.top = 50;
 light.shadow.camera.bottom = -50;
-light.shadow.camera.left = -50;
-light.shadow.camera.right = 50;
+light.shadow.camera.left = -30;
+light.shadow.camera.right = 30;
 light.shadow.camera.near = 0.5;
 light.shadow.camera.far = 500;
 light.castShadow = true;
 scene.add(light);
 
-const helper = new THREE.CameraHelper( light.shadow.camera );
-scene.add( helper );
+
+//makes the blockade for use with menu
+let blockadeDimensions = new THREE.PlaneGeometry(900,300)
+let blockade = new Box(blockadeDimensions, 'black')
+blockade.mesh.position.set(0,39,39)
+
+function blockadeAddToScene(){
+  scene.add(blockade.mesh);
+}
+
+// blockadeAddToScene()
 
 //makes court
 let courtDimensions = new THREE.PlaneGeometry(90,30)
 let court = new Box(courtDimensions, 'khaki')
 court.mesh.rotateX(3*pi/2)
 court.mesh.receiveShadow = true;
-
 scene.add(court.mesh);
 
-
-  let floorDimensions = new THREE.PlaneGeometry(1600,100)
-  let floor = new Box(floorDimensions, 'lightgreen')
-  floor.mesh.position.set(0,-0.001,0)
-  floor.mesh.rotateX(-pi/2)
-  floor.mesh.receiveShadow = true;
-
-  scene.add(floor.mesh)
+//makes floor
+let floorDimensions = new THREE.PlaneGeometry(1600,100)
+let floor = new Box(floorDimensions, 'lightgreen')
+floor.mesh.position.set(0,-0.001,0)
+floor.mesh.rotateX(-pi/2)
+floor.mesh.receiveShadow = true;
+scene.add(floor.mesh)
 
 //makes net
 let netDimensions = new THREE.BoxGeometry(0.5,15,30)
@@ -92,7 +100,6 @@ let pointerArrow = new THREE.ArrowHelper( dir, origin, length, colour );
 //makes ball
 let ballDimensions = new THREE.SphereGeometry(1.5,32,16) //radius, width segments, height segments
 let ball = new Ball(ballDimensions, 'orange', 9.5, 5, 10,) //dimensions, colour, x, y, z
-
 scene.add(ball.mesh)
 
 //makes an AI
@@ -314,11 +321,6 @@ function render(){
 
   ball.getUpwardsVelocity()
   ball.getHorizontalVelocity()
-
-  // ai.forEach(x => x.moveToBall())
-  // ai[1].moveToBall()
-  // ai[2].moveToBall()
-
 
   ai.forEach(x => {x.moveToBall()
     x.actionDecision()

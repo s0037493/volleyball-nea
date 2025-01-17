@@ -1,0 +1,42 @@
+
+.titular{
+    margin-top: 0;
+    margin-bottom: 0;
+    background-color: black;
+    color: white;
+    text-align:center;
+}
+
+
+body{
+    background-color: black;
+}
+
+.options{
+    margin-bottom: 0;
+    background-color: black;
+    color: rgb(0, 232, 240);
+    text-align:center;
+}
+
+.options:hover{
+    color: rgb(240, 164, 0);
+}
+
+
+.controls-info{
+    margin-bottom: 0;
+    background-color: black;
+    color: rgb(0, 232, 240);
+    text-align:center;
+}
+
+.controls-info:hover{
+    color: rgb(240, 108, 0);
+}
+
+
+
+
+
+
