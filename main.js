@@ -34,7 +34,7 @@ function cameraMovement(){
 
 //setting up the renderer
 const renderer = new THREE.WebGLRenderer({ antialias: true, });
-renderer.setSize(window.innerWidth-(window.innerWidth/150), window.innerHeight-50);
+renderer.setSize(window.innerWidth*0.991, window.innerHeight*0.94);
 renderer.setClearColor('skyblue');
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.BasicShadowMap;

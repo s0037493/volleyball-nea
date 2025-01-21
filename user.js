@@ -156,20 +156,20 @@ class User extends Player {
       }
       ;
 
-      if (input === "l") {  //l, move the ball above user
-         ball.setX(this.getX())
-         ball.setY(this.getY() + 7)
-         ball.setZ(this.getZ())
+      // if (input === "l") {  //l, move the ball above user
+      //    ball.setX(this.getX())
+      //    ball.setY(this.getY() + 7)
+      //    ball.setZ(this.getZ())
 
-         ai[0].setX(5)
-         ai[0].setY(5)
-         ai[0].setZ(0)
+      //    ai[0].setX(5)
+      //    ai[0].setY(5)
+      //    ai[0].setZ(0)
 
-         lastTouch = "d"
-         ballTouches = 0 
-         lastTouchTeam = true
+      //    lastTouch = "d"
+      //    ballTouches = 0 
+      //    lastTouchTeam = true
 
-      }
+      // }
 
 
       if (input === "t") {  //t, toss
