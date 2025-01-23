@@ -1,122 +1,125 @@
-class Ball{
-  
-  constructor(inputSphereDimensions, inputColour, inputX, inputY, inputZ){
-  this.geometry = inputSphereDimensions; //radius, width segments, height segments
-  // this.material = new THREE.MeshBasicMaterial({ color: inputColour })
-  this.material = new THREE.MeshStandardMaterial({ color: inputColour })
-  this.mesh = new THREE.Mesh(this.geometry, this.material);
-  this.mesh.receiveShadow = true;
-  this.mesh.castShadow = true;
+class Ball {
 
-  this.mesh.position.set(inputX,inputY,inputZ);
+  constructor(inputSphereDimensions, inputColour, inputX, inputY, inputZ) {
+    this.geometry = inputSphereDimensions; //radius, width segments, height segments
+    // this.material = new THREE.MeshBasicMaterial({ color: inputColour })
+    this.material = new THREE.MeshStandardMaterial({ color: inputColour })
+    this.mesh = new THREE.Mesh(this.geometry, this.material);
+    this.mesh.receiveShadow = true;
+    this.mesh.castShadow = true;
 
-  this.horizontalVelocity = 0
-  this.upwardsVelocity = 0
-  this.upwardsRotation = 0
-  this.horizontalRotation = 0
+    this.mesh.position.set(inputX, inputY, inputZ);
+
+    this.horizontalVelocity = 0
+    this.upwardsVelocity = 0
+    this.upwardsRotation = 0
+    this.horizontalRotation = 0
 
   }
- 
-  ballPhysics(){
-    if(this.upwardsVelocity != 0){
-      let newX = this.getX() + Math.sin(this.horizontalRotation)*this.horizontalVelocity //calculate change to x
+
+  ballPhysics() {
+    if (this.upwardsVelocity != 0) {
+      let newX = this.getX() + Math.sin(this.horizontalRotation) * this.horizontalVelocity //calculate change to x
       this.setX(newX) //update x
 
-      let newZ = this.getZ() + Math.cos(this.horizontalRotation)*this.horizontalVelocity //calculate change to z
+      let newZ = this.getZ() + Math.cos(this.horizontalRotation) * this.horizontalVelocity //calculate change to z
       this.setZ(newZ) //update z
-      if(this.horizontalVelocity>=0.6) //give a baseline for the horizontal velocity as it works well and ensures that it never gets negative
-      this.setHorizontalVelocity(this.getHorizontalVelocity()*0.97) //horizontal velocity should decrease slower (air resistance)
+      if (this.horizontalVelocity >= 0.6) //give a baseline for the horizontal velocity as it works well and ensures that it never gets negative
+        this.setHorizontalVelocity(this.getHorizontalVelocity() * 0.97) //horizontal velocity should decrease slower (air resistance)
 
-      let newY = this.getY() + Math.sin(this.upwardsRotation)*this.upwardsVelocity //calculate change to y
+      let newY = this.getY() + Math.sin(this.upwardsRotation) * this.upwardsVelocity //calculate change to y
       this.setY(newY) //update y
-      this.setUpwardsVelocity(this.getUpwardsVelocity()-0.02)  //reduce the upwards velocity by gravity.                           
-    } 
+      this.setUpwardsVelocity(this.getUpwardsVelocity() - 0.02)  //reduce the upwards velocity by gravity.                           
     }
-
-  netCollider(){
-  if(this.getX() >= 0.1 && this.getX() <= 1.5 && this.getY() < 16.5){ // lower bound, upper bound, net height
-    this.setX(1.5) //right hand side
-  }
-  else if(this.getX() >= -1.5 &&  this.getX() <= -0.1 &&  this.getY()<16.5){ // lower bound, upper bound, net height
-    this.setX(-1.5) //left hand side
-  }
-  else if(this.getX() > -0.1 &&  this.getX() < 0.1 && this.getY()<16.5){
-    this.setX(0)
-    this.setY(16.5)
-    this.setUpwardsVelocity(0) //ensures user motion stops and physics engine wont take them lower.
-    this.setHorizontalVelocity(0)
-  }
   }
 
-  courtCollider(){
-    if(this.getY()<1.5){
+  netCollider() {
+    if (this.getX() >= 0.1 && this.getX() <= 1.5 && this.getY() < 16.5) { // lower bound, upper bound, net height
+      this.setX(1.5) //right hand side
+    }
+    else if (this.getX() >= -1.5 && this.getX() <= -0.1 && this.getY() < 16.5) { // lower bound, upper bound, net height
+      this.setX(-1.5) //left hand side
+    }
+    else if (this.getX() > -0.1 && this.getX() < 0.1 && this.getY() < 16.5) {
+      this.setX(0)
+      this.setY(16.5)
+      this.setUpwardsVelocity(0) //ensures user motion stops and physics engine wont take them lower.
+      this.setHorizontalVelocity(0)
+    }
+  }
+
+  courtCollider() {
+    if (this.getY() < 1.5) {
       this.setY(1.5)
       this.setUpwardsVelocity(0) //ensures user motion stops and physics engine wont take them lower.
       this.setHorizontalVelocity(0)
-      this.velocity=0
+      this.velocity = 0
 
-      console.log(ballTouches+" touches")
+      console.log(ballTouches + " touches")
       window.alert("Ball has touched the floor.")
+
+      // If the ball lands IN of the court on the right team’s side, award point to left team. If the ball lands IN of the court on the right team’s side, award point to left team.
+      // If the ball lands OUT of the court and last touch is right team, award point to left team. If the ball lands OUT of the court and last touch is left team, award point to right team.
     }
   }
 
-  getX(){
+  getX() {
     return this.mesh.position.x
   }
 
-  getY(){
+  getY() {
     return this.mesh.position.y
   }
 
-  getZ(){
+  getZ() {
     return this.mesh.position.z
   }
 
-  setX(newX){
+  setX(newX) {
     this.mesh.position.set(newX, this.getY(), this.getZ())
   }
 
-  setY(newY){
+  setY(newY) {
     this.mesh.position.set(this.getX(), newY, this.getZ())
   }
 
-  setZ(newZ){
+  setZ(newZ) {
     this.mesh.position.set(this.getX(), this.getY(), newZ)
   }
 
-  getUpwardsVelocity(){
+  getUpwardsVelocity() {
     return this.upwardsVelocity
   }
 
-  getHorizontalVelocity(){
+  getHorizontalVelocity() {
     return this.horizontalVelocity
   }
 
-  setUpwardsVelocity(newUpwardsVelocity){
+  setUpwardsVelocity(newUpwardsVelocity) {
     this.upwardsVelocity = newUpwardsVelocity
   }
 
-  setHorizontalVelocity(newHorizontalVelocity){
+  setHorizontalVelocity(newHorizontalVelocity) {
     this.horizontalVelocity = newHorizontalVelocity
   }
 
-  setUpwardsRotation(newupwardsRotation){
+  setUpwardsRotation(newupwardsRotation) {
     this.upwardsRotation = newupwardsRotation
   }
 
-  setHorizontalRotation(newhorizontalRotation){
+  setHorizontalRotation(newhorizontalRotation) {
     this.horizontalRotation = newhorizontalRotation
   }
 
-  getHorizontalRotation(){
+  getHorizontalRotation() {
     return this.horizontalRotation
   }
 
-  getUpwardsRotation(){
+  getUpwardsRotation() {
     return this.upwardsRotation
   }
 
 }
 
-  
+
 

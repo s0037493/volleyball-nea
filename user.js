@@ -13,7 +13,7 @@ class User extends Player {
       this.mesh.position.z = inputZ
 
       this.rotationDegrees = 270 //defaults at 270
-      
+
    }
 
    checkMovement() { //method for user movement
@@ -45,15 +45,15 @@ class User extends Player {
 
 
       if (keysPressedDown["ArrowRight"] === true) { //right arrow
-         this.mesh.rotateY(-1/128 * 2*pi) //rotates by 1/128 of the circle every time pressed
-         this.rotationDegrees = this.rotationDegrees - 360/128
+         this.mesh.rotateY(-1 / 128 * 2 * pi) //rotates by 1/128 of the circle every time pressed
+         this.rotationDegrees = this.rotationDegrees - 360 / 128
          if (this.rotationDegrees == 360 || this.rotationDegrees == -360) {
             this.rotationDegrees = 0 //not strictly necessary, but sets a boundary from -360 to 360 for the angle.
          }
       }
       if (keysPressedDown["ArrowLeft"] === true) { //left arrow
-         this.mesh.rotateY(1/128 * 2*pi) //rotates by 1/128 of the circle every time pressed
-         this.rotationDegrees = this.rotationDegrees + 360/128
+         this.mesh.rotateY(1 / 128 * 2 * pi) //rotates by 1/128 of the circle every time pressed
+         this.rotationDegrees = this.rotationDegrees + 360 / 128
          if (this.rotationDegrees == 360 || this.rotationDegrees == -360) {
             this.rotationDegrees = 0 //not strictly necessary, but sets a boundary from -360 to 360 for the angle.
          }
@@ -65,20 +65,20 @@ class User extends Player {
       }
    }
 
-   ballActions(input){
+   ballActions(input) {
 
-      if (input === "e") {  //e, hit
-         if (this.ballInRangeBlockingEdition() && (ballTouches==0 || ballTouches == 3)) { //last touch came from left team (block)
+      if (input === "e") {  //e, BLOCK
+         if (this.ballInRangeBlockingEdition() && (ballTouches == 0 || ballTouches == 3)) { //last touch came from left team (block)
             ball.setUpwardsVelocity(0.3)
             ball.setHorizontalVelocity(0.3)
             ball.setUpwardsRotation(1.22173048)
             ball.setHorizontalRotation(this.rotationRadians)
             movementPrediction()
 
-            lastTouchTeam = false;
-            lastTouch="a"
+            lastTouchTeam = true;
+            lastTouch = "a"
             ballTouches++
-            
+
             console.log(ballTouches)
 
             movementPrediction()
@@ -86,72 +86,92 @@ class User extends Player {
 
             console.log("Block")
          }
-         else if (this.ballInRange() && (ballTouches==1 || ballTouches == 2)) { //last touch came from right team (hit)
-            ball.setUpwardsVelocity(0.3)
 
-            if(ABDistance("a","ACTUALball")<=1.5) ball.setHorizontalVelocity(1.5)
-            else if(ABDistance("a","ACTUALball")<=4) ball.setHorizontalVelocity(1)
-            else ball.setHorizontalVelocity(0.5)
+         //e, HIT
+         else if (this.ballInRange() && (ballTouches == 1 || ballTouches == 2)) { //last touch came from right team (hit)
+            if (lastTouch != "a") { //if the user did NOT touch ball last, allow the hit:
+               ball.setUpwardsVelocity(0.3)
 
-            ball.setUpwardsRotation(1.22173048)
-            ball.setHorizontalRotation(this.rotationRadians)
-            movementPrediction()
+               if (ABDistance("a", "ACTUALball") <= 1.5) ball.setHorizontalVelocity(1.5)
+               else if (ABDistance("a", "ACTUALball") <= 4) ball.setHorizontalVelocity(1)
+               else ball.setHorizontalVelocity(0.5)
 
-            lastTouchTeam = false;
-            lastTouch="a"
-            ballTouches++
-            
-            console.log(ballTouches)
+               ball.setUpwardsRotation(1.22173048)
+               ball.setHorizontalRotation(this.rotationRadians)
+               movementPrediction()
 
-            movementPrediction()
-            movementDecision()
+               lastTouchTeam = true;
+               lastTouch = "a"
+               ballTouches++
+
+               console.log(ballTouches)
+
+               movementPrediction()
+               movementDecision()
+            }
+            else if (lastTouch == "a") { //double touch.
+               scoring(false)
+               console.log("Double touch.")
+            }
          }
       };
 
       if (input === "r") {  //r, set
-         if (this.ballInRange()){
-            ball.setUpwardsVelocity(1.2)
-            ball.setHorizontalVelocity(0.15)
+         if (this.ballInRange()) {
+            if (lastTouch != "a") { //if the user did NOT touch ball last, allow the hit:
+               ball.setUpwardsVelocity(1.2)
+               ball.setHorizontalVelocity(0.15)
 
-            ball.setUpwardsRotation(1.22173048) //50 degrees
-            ball.setHorizontalRotation(this.rotationRadians)
-            movementPrediction()
+               ball.setUpwardsRotation(1.22173048) //50 degrees
+               ball.setHorizontalRotation(this.rotationRadians)
+               movementPrediction()
 
-            keysPressedDown["r"]===false
-            lastTouchTeam = false;
-            lastTouch="a"
-            ballTouches++
-            
-            movementPrediction()
-            movementDecision()
+               keysPressedDown["r"] === false
+               lastTouchTeam = true;
+               lastTouch = "a"
+               ballTouches++
+
+               movementPrediction()
+               movementDecision()
+            }
+            else if (lastTouch == "a") { //double touch.
+               scoring(false)
+               console.log("Double touch.")
+            }
          }
       };
 
       if (input === "f") {  //f, pass (automatic angle)
          if (this.ballInRange()) {
-            ball.setUpwardsVelocity(1.2)
-            //HORIZONTAL VELOCITY MANAGEMENT
-            let ABdist = ABDistance("a", "b")
+            if (lastTouch != "a") { //if the user did NOT touch ball last, allow the hit:
+               ball.setUpwardsVelocity(1.2)
+               //HORIZONTAL VELOCITY MANAGEMENT
+               let ABdist = ABDistance("a", "b")
 
-            if (ABdist <= 12) ball.setHorizontalVelocity(0.05)//0 to 12
-            else if (ABdist <= 18) ball.setHorizontalVelocity(0.1)//13 to 18
-            else if (ABdist <= 22) ball.setHorizontalVelocity(0.12)//19 to 22
-            else if (ABdist <= 26) ball.setHorizontalVelocity(0.14)//23 to 26
-            else if (ABdist <= 29) ball.setHorizontalVelocity(0.16)//27 to 29 
-            else if (ABdist >= 30) ball.setHorizontalVelocity(0.2)//30 up  
-            
-         
+               if (ABdist <= 12) ball.setHorizontalVelocity(0.05)//0 to 12
+               else if (ABdist <= 18) ball.setHorizontalVelocity(0.1)//13 to 18
+               else if (ABdist <= 22) ball.setHorizontalVelocity(0.12)//19 to 22
+               else if (ABdist <= 26) ball.setHorizontalVelocity(0.14)//23 to 26
+               else if (ABdist <= 29) ball.setHorizontalVelocity(0.16)//27 to 29 
+               else if (ABdist >= 30) ball.setHorizontalVelocity(0.2)//30 up  
 
-         ball.setUpwardsRotation(0.87266463) //50 degrees
-         ball.setHorizontalRotation(pTpAngle("a", "b", false))
-         movementPrediction()
 
-         lastTouchTeam = false;
-         lastTouch="a"
-         ballTouches++
-         
-         movementPrediction()
-         movementDecision()
+
+               ball.setUpwardsRotation(0.87266463) //50 degrees
+               ball.setHorizontalRotation(pTpAngle("a", "b", false))
+               movementPrediction()
+
+               lastTouchTeam = true;
+               lastTouch = "a"
+               ballTouches++
+
+               movementPrediction()
+               movementDecision()
+            }
+            else if (lastTouch == "a") { //double touch.
+               scoring(false)
+               console.log("Double touch.")
+            }
          }
       }
       ;
@@ -203,10 +223,10 @@ class User extends Player {
                gPressed = true;
                serving = false;
 
-               lastTouchTeam = false;
-               lastTouch="a"
+               lastTouchTeam = true;
+               lastTouch = "a"
                ballTouches++
-               
+
                movementPrediction()
                movementDecision()
             }
@@ -228,23 +248,23 @@ class User extends Player {
       scene.add(pointerArrow)
    }
 
-   ballInRangeBlockingEdition(){
+   ballInRangeBlockingEdition() {
       let XDistance = (this.getX() - ball.getX())
       let YDistance = this.getY() - ball.getY()
       let ZDistance = (this.getZ() - ball.getZ())
-  
-      let totalDistanceSquared = XDistance**2 + YDistance**2 + ZDistance**2 //pythagoras
+
+      let totalDistanceSquared = XDistance ** 2 + YDistance ** 2 + ZDistance ** 2 //pythagoras
       let distanceToBall = Math.sqrt(totalDistanceSquared) //pythagoras
-  
-      if(distanceToBall<4){
-        // console.log("In range")
-        return true //ball is in range
+
+      if (distanceToBall < 4) {
+         // console.log("In range")
+         return true //ball is in range
       }
-      else{
-        // console.log("Out of range")
-        return false //ball out of range
+      else {
+         // console.log("Out of range")
+         return false //ball out of range
       }
-    }
+   }
 
 
 
