@@ -60,20 +60,20 @@ class AI extends Player {
     if (this.timeToMove == true) {//while the AI is not at the ball:
 
       if (this.pX > this.getX()) {//if the ball has higher x coord than ai:
-        this.setX(this.getX() + 0.20)//increase x
+        this.setX(this.getX() + 0.18)//increase x
       }
       else if (this.pX < this.getX()) {//if the ball has lower x coord than ai:
-        this.setX(this.getX() - 0.20)//decrease x
+        this.setX(this.getX() - 0.18)//decrease x
       }
 
       if (this.pZ > this.getZ()) {//same as X
-        this.setZ(this.getZ() + 0.15)
+        this.setZ(this.getZ() + 0.18)
       }
       else if (this.pZ < this.getZ()) {
-        this.setZ(this.getZ() - 0.15)
+        this.setZ(this.getZ() - 0.18)
       }
 
-      if (Math.sqrt((this.getX() - this.pX) ** 2 + (this.getZ() - this.pZ) ** 2) < 3) { //check if the ball is in range on X and Z axes.
+      if (Math.sqrt((this.getX() - this.pX) ** 2 + (this.getZ() - this.pZ) ** 2) < 2.75) { //check if the ball is in range on X and Z axes.
 
         // if(Math.abs(this.getX()-this.pX <= 2)){//if the AI is in range of ball based on x
         //   if(Math.abs(this.getZ()-this.pZ <= 2)){//if the AI is in range of ball based on z
@@ -174,10 +174,11 @@ class AI extends Player {
 
       //hit
       if (this.ballInRange() == true) {
-        ball.setUpwardsVelocity(0.25)
-        ball.setHorizontalVelocity((Math.random() + 1) / 2)
-        ball.setUpwardsRotation(1.22173048) //50 degrees
-
+        ball.setUpwardsVelocity(0.22)
+        ball.setHorizontalVelocity((Math.random() + 2) / 2)
+        ball.setUpwardsRotation((Math.random()+1)*0.6) //50 degrees
+        console.log(ball.getUpwardsRotation() + " r")
+        console.log(ball.getHorizontalVelocity() + " h")
         if (this.letter == "b") {
           this.boundOne = pTpAngle(this.letter, "tl", false)
           this.boundTwo = pTpAngle(this.letter, "bl", false)
@@ -198,8 +199,7 @@ class AI extends Player {
         this.timeToMove = false;
         this.makeAction = false;
         this.allowedToHit = false;
-        movementPrediction()
-        movementDecision()
+        setTimeout(250, movementDecision())
       }
 
     }

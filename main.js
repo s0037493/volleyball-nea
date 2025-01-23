@@ -52,8 +52,8 @@ light.shadow.camera.far = 500;
 light.castShadow = true;
 scene.add(light);
 
-//makes court
-let courtDimensions = new THREE.PlaneGeometry(90, 30)
+//makes court 
+let courtDimensions = new THREE.PlaneGeometry(90, 30) //x, z
 let court = new Box(courtDimensions, 'khaki')
 court.mesh.rotateX(3 * pi / 2)
 court.mesh.receiveShadow = true;
@@ -120,7 +120,6 @@ let rightSets = 0
 function servingControl() {
   if (serving == true) {
     if (servingPlayer == 0) {
-      serviceCollider = true;
       gPressed = false;
       lastTouchTeam = false
       lastTouch = "b"

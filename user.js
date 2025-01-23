@@ -69,9 +69,9 @@ class User extends Player {
 
       if (input === "e") {  //e, BLOCK
          if (this.ballInRangeBlockingEdition() && (ballTouches == 0 || ballTouches == 3)) { //last touch came from left team (block)
-            ball.setUpwardsVelocity(0.3)
-            ball.setHorizontalVelocity(0.3)
-            ball.setUpwardsRotation(1.22173048)
+            ball.setUpwardsVelocity((Math.random()*(1.4-0.6)+0.6)-1)
+            ball.setHorizontalVelocity(0.4)
+            ball.setUpwardsRotation(Math.random()*(1.22173048-0.4)+0.4)
             ball.setHorizontalRotation(this.rotationRadians)
             movementPrediction()
 
@@ -82,7 +82,7 @@ class User extends Player {
             console.log(ballTouches)
 
             movementPrediction()
-            movementDecision()
+            setTimeout(250,movementDecision())
 
             console.log("Block")
          }
@@ -92,13 +92,13 @@ class User extends Player {
             if (lastTouch != "a") { //if the user did NOT touch ball last, allow the hit:
                ball.setUpwardsVelocity(0.3)
 
-               if (ABDistance("a", "ACTUALball") <= 1.5) ball.setHorizontalVelocity(1.5)
-               else if (ABDistance("a", "ACTUALball") <= 4) ball.setHorizontalVelocity(1)
-               else ball.setHorizontalVelocity(0.5)
+               if (ABDistance("a", "ACTUALball") <= 2) ball.setHorizontalVelocity(Math.random()*(1.9-1.6)+1.6)
+               else ball.setHorizontalVelocity(Math.random()*(1.2-0.7)+0.7)
 
-               ball.setUpwardsRotation(1.22173048)
+
+               ball.setUpwardsRotation(Math.random()*(1.22173048-0.8)+0.8)
                ball.setHorizontalRotation(this.rotationRadians)
-               movementPrediction()
+
 
                lastTouchTeam = true;
                lastTouch = "a"
@@ -106,11 +106,12 @@ class User extends Player {
 
                console.log(ballTouches)
 
-               movementPrediction()
+
                movementDecision()
             }
             else if (lastTouch == "a") { //double touch.
-               scoring(false)
+               setTimeout(scoring(false), 2500)
+               console.log("left team have won " + leftPoints + " points.")
                console.log("Double touch.")
             }
          }
@@ -135,7 +136,8 @@ class User extends Player {
                movementDecision()
             }
             else if (lastTouch == "a") { //double touch.
-               scoring(false)
+               setTimeout(scoring(false), 2500)
+               console.log("left team have won " + leftPoints + " points.")
                console.log("Double touch.")
             }
          }
@@ -169,49 +171,59 @@ class User extends Player {
                movementDecision()
             }
             else if (lastTouch == "a") { //double touch.
-               scoring(false)
+               setTimeout(scoring(false), 2500)
+               console.log("left team have won " + leftPoints + " points.")
                console.log("Double touch.")
             }
          }
       }
       ;
 
-      // if (input === "l") {  //l, move the ball above user
-      //    ball.setX(this.getX())
-      //    ball.setY(this.getY() + 7)
-      //    ball.setZ(this.getZ())
+      if (input === "l") {  //l, move the ball above user
+         ball.setX(this.getX())
+         ball.setY(this.getY() + 7)
+         ball.setZ(this.getZ())
 
-      //    ai[0].setX(5)
-      //    ai[0].setY(5)
-      //    ai[0].setZ(0)
+         ai[0].setX(5)
+         ai[0].setY(5)
+         ai[0].setZ(0)
 
-      //    lastTouch = "d"
-      //    ballTouches = 0 
-      //    lastTouchTeam = true
+         lastTouch = "d"
+         ballTouches = 0
+         lastTouchTeam = true
 
-      // }
+      }
 
 
       if (input === "t") {  //t, toss
-         if (servingPlayer == 0 && serving == true) {
+         console.log("A")
+         if (serving == true){
+            console.log("B")
             if (this.ballInRange()) {
-               ball.setUpwardsVelocity(1)
-               ball.setHorizontalVelocity(0)
+               serviceCollider = false
+               console.log("C")
 
-               ball.setUpwardsRotation(1.22173048) //70 degrees
+               ball.setUpwardsVelocity(1)
+               ball.setHorizontalVelocity(0.05)
+               ball.setUpwardsRotation(0.87266463) //50 degrees
                ball.setHorizontalRotation(this.rotationRadians)
-               serviceCollider = false;
+
+               serviceCollider = false
+               lastTouchTeam = true;
+               lastTouch = "a"
+               ballTouches++
+
             }
          }
       };
 
       if (input === "g") {  //g, serve
-         if (servingPlayer == 0 & serving == true) {
+         if (servingPlayer == 0 && serving == true) {
             if (this.ballInRange()) {
 
                if (this.getY() >= 7) { //jump serve
                   ball.setUpwardsVelocity(0.6)
-                  ball.setHorizontalVelocity(2.1)
+                  ball.setHorizontalVelocity((Math.random() * (2.2-1.8) + 1.4))
                }
                else { //standing serve
                   ball.setUpwardsVelocity(0.8)
@@ -227,8 +239,7 @@ class User extends Player {
                lastTouch = "a"
                ballTouches++
 
-               movementPrediction()
-               movementDecision()
+               setTimeout(250, movementDecision())
             }
          }
       };
