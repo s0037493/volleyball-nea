@@ -111,8 +111,8 @@ var lastTouchTeam;
 var lastTouch;
 
 //variables for rules, points, etc.
-let leftPoints = 20
-let rightPoints = 20
+let leftPoints = 0
+let rightPoints = 0
 let leftSets = 0
 let rightSets = 0
 

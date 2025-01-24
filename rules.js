@@ -60,18 +60,4 @@ function scoring(winner) { //input the team that won the point
     ai[0].mustPosition = false;
     ai[1].mustPosition = false;
     ai[2].mustPosition = false;
-
-
-
 }
-
-
-// (in ball.js)
-// Under court collider:
-// If the ball lands IN of the court on the right team’s side, award point to left team. If the ball lands IN of the court on the right team’s side, award point to left team.
-// If the ball lands OUT of the court and last touch is right team, award point to left team. If the ball lands OUT of the court and last touch is left team, award point to right team.
-
-// here?
-// If points won >= 21, and points won > 2 + opposition points won, add 1 to team’s sets won.
-// If sets won = 3, then end the game as that team has won the game. Make the score extra large to signify game is over.
-// If right team sets won = 2 and left team sets won = 2 then If points won >= 15, and points won > 2 + opposition points won, add 1 to team’s sets won.

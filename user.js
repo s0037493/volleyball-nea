@@ -110,8 +110,7 @@ class User extends Player {
                setTimeout(movementDecision, 250)
             }
             else if (lastTouch == "a") { //double touch.
-               setTimeout(scoring,500,false)
-               console.log("left team have won " + leftPoints + " points.")
+               scoring(false)
                console.log("Double touch.")
             }
          }
