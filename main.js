@@ -1,5 +1,3 @@
-
-
 const pi = Math.PI
 
 const scene = new THREE.Scene();
@@ -18,9 +16,9 @@ camera.lookAt(0, 15, 0)
 
 function cameraMovement() {
   if (serving == true) {
-    if (camera.position.y <= 50) {
-      camera.position.y = camera.position.y + 0.05
-      camera.position.z = camera.position.z + 0.05
+    if (camera.position.y <= 55) {
+      camera.position.y = camera.position.y + 0.1
+      camera.position.z = camera.position.z + 0.1
     }
   }
   else if (serving == false) {
@@ -34,7 +32,7 @@ function cameraMovement() {
 
 //setting up the renderer
 const renderer = new THREE.WebGLRenderer({ antialias: true, });
-renderer.setSize(window.innerWidth * 0.991, window.innerHeight * 0.94);
+renderer.setSize(window.innerWidth, window.innerHeight * 0.92);
 renderer.setClearColor('skyblue');
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.BasicShadowMap;
@@ -72,6 +70,24 @@ let netDimensions = new THREE.BoxGeometry(0.5, 15, 30)
 let net = new Box(netDimensions, 'hotpink')
 net.mesh.position.set(0, 7.5, 0)
 scene.add(net.mesh);
+
+//makes scoreboard
+let boardDimensions = new THREE.BoxGeometry(15,5,0.7)
+let board = new Box(boardDimensions,'red')
+board.mesh.position.set(17,4.8,-25)
+board.mesh.rotateY(-pi/8)
+scene.add(board.mesh)
+
+//makes scoreboard legs
+let legDimensions = new THREE.BoxGeometry(0.5,5,0.5)
+let leg1 = new Box(legDimensions,'grey')
+let leg2 = new Box(legDimensions,'grey')
+leg1.mesh.position.set(13,0,-27)
+leg2.mesh.position.set(21,0,-24)
+scene.add(leg1.mesh)
+scene.add(leg2.mesh)
+
+
 
 //makes user
 let playerDimensions = new THREE.BoxGeometry(3, 10, 3) //used for all players
@@ -111,10 +127,10 @@ var lastTouchTeam;
 var lastTouch;
 
 //variables for rules, points, etc.
-let leftPoints = 0
+var leftPoints = 13
 let rightPoints = 0
-let leftSets = 0
-let rightSets = 0
+let leftSets = 2
+let rightSets = 1
 
 //controls server
 function servingControl() {
@@ -172,9 +188,11 @@ function servingControl() {
 
 
     else if (servingPlayer == 1) {
+
       lastTouchTeam = true
       lastTouch = "d"
       ballTouches = 2
+
       if (toMove == true) {
         user.setX(20)
         user.setY(5)
@@ -193,7 +211,6 @@ function servingControl() {
         ai[2].setY(5)
         ai[2].setZ(-10)
 
-
         toMove = false;
       }
       if (serviceCollider == true) { //will be set to false once the ai serves
@@ -202,9 +219,7 @@ function servingControl() {
         ball.setX(ai[1].getX() + 3.5)
         ball.setZ(ai[1].getZ() + 1.6)
         ball.setY(ai[1].getY())
-        setTimeout(function () {
-          ai[1].serving()
-        }, 3000)
+        setTimeout(() => ai[1].service(), 4000)
       }
     }
 
@@ -239,9 +254,7 @@ function servingControl() {
         ball.setX(ai[0].getX() - 3.5)
         ball.setZ(ai[0].getZ() - 1.6)
         ball.setY(ai[0].getY())
-        setTimeout(function () {
-          ai[0].serving()
-        }, 3000)
+        setTimeout(() => ai[0].service(), 3000)
       }
     }
     else if (servingPlayer == 3) {
@@ -274,9 +287,7 @@ function servingControl() {
         ball.setX(ai[2].getX() + 3.5)
         ball.setZ(ai[2].getZ() + 1.6)
         ball.setY(ai[2].getY())
-        setTimeout(function () {
-          ai[2].serving()
-        }, 3000)
+        setTimeout(() => ai[2].service(), 3000)
       }
     }
   }
@@ -308,6 +319,7 @@ function render() {
   user.netCollider()
   user.courtCollider()
   user.jumpPhysics()
+  user.lineFault()
 
   ball.netCollider()
   ball.courtCollider()
@@ -324,7 +336,6 @@ function render() {
     x.hit()
     x.defensivePosition()
   })
-
   servingControl()
   cameraMovement()
 

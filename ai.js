@@ -99,10 +99,6 @@ class AI extends Player {
         if (ball.getY() > 7 && ABDistance(this.letter, "ACTUALballXZ") < 8) {
           this.allowedToHit = true; //(function must include makeAction = false)
         }
-        else {
-          //this.freeball() (function must include makeAction = false)
-        }
-
       }
     }
   }
@@ -175,10 +171,10 @@ class AI extends Player {
       //hit
       if (this.ballInRange() == true) {
         ball.setUpwardsVelocity(0.22)
-        ball.setHorizontalVelocity((Math.random() + 2) / 2)
-        ball.setUpwardsRotation((Math.random()+1)*0.6) //50 degrees
-        console.log(ball.getUpwardsRotation() + " r")
-        console.log(ball.getHorizontalVelocity() + " h")
+        ball.setHorizontalVelocity(Math.random() * (1.9 - 1.4) + 1.4)
+        ball.setUpwardsRotation(Math.random() * (1.22173048 - 0.8) + 0.8)
+        console.log(ball.getUpwardsRotation() + " angle")
+        console.log(ball.getHorizontalVelocity() + " velocity")
         if (this.letter == "b") {
           this.boundOne = pTpAngle(this.letter, "tl", false)
           this.boundTwo = pTpAngle(this.letter, "bl", false)
@@ -213,8 +209,9 @@ class AI extends Player {
     movementDecision()
   }
 
-  serving() {
-    if (this.ballInRange()) {
+  service() {
+    if (serving == true) {
+      // if (this.ballInRange() == true) {
 
       if (this.choice == 0) { //standing serve
 
@@ -236,7 +233,6 @@ class AI extends Player {
         ball.setUpwardsRotation(0.87266463) //50 degrees
 
         serviceCollider = false;
-        serving = false;
 
         if (this.letter == "b") lastTouchTeam = true; //if on right, right touched last
         else lastTouchTeam = false; //if on left, left touched last
@@ -247,25 +243,40 @@ class AI extends Player {
 
         movementPrediction()
         movementDecision()
+
+        serving = false;
       }
 
       else {
         //toss
-        console.log("Jump")
-        if (this.ballInRange() && this.getY() == 5) {
+        if (this.getY() == 5 && ball.getY() == 5) {
+          console.log("Toss")
+          ball.setUpwardsVelocity(0) //ensures user motion stops and physics engine wont take them lower.
+          ball.setHorizontalVelocity(0)
+
           serviceCollider = false;
-          serving = false;
-          ball.setUpwardsVelocity(1)
+
+          ball.setUpwardsVelocity(1.3)
           ball.setHorizontalVelocity(0)
           ball.setUpwardsRotation(1.22173048) //70 degrees
 
-          //jump
+          if (this.letter == "b") lastTouchTeam = true; //if on right, right touched last
+          else lastTouchTeam = false; //if on left, left touched last
+          ballTouches = 1
+        }
+
+        //jump
+        // if (ball.getY() >= 30 && this.getY()==5) {
+        if (ball.getUpwardsVelocity() <= 0.5 && this.getY() == 5) {
+          console.log("Jump")
+          console.log(ball.getY())
           this.setUpwardsVelocity(0.65)
           this.setUpwardsRotation(pi / 2) //90 degrees
         }
+
         //hit
-        if (this.ballInRange() && this.getY() > 20) {
-          console.log(("GO"))
+        if (this.ballInRange() && this.getY() > 5) {
+          console.log("Hit")
           if (this.letter == "b") {
             this.boundOne = pTpAngle(this.letter, "tl", false)
             this.boundTwo = pTpAngle(this.letter, "bl", false)
@@ -276,32 +287,29 @@ class AI extends Player {
           }
           if (this.boundOne < this.boundTwo) this.chosenAngle = Math.random() * (this.boundTwo - this.boundOne) + this.boundOne //if max=boundTwo, generate random
           else this.chosenAngle = Math.random() * (this.boundTwo - this.boundOne) + this.boundOne //if max=boundOne, generate random
-          ball.setHorizontalRotation(this.chosenAngle) //set the random angle
-          console.log(this.chosenAngle)
 
-          ball.setUpwardsVelocity(0.6)
-          ball.setHorizontalVelocity(2.1)
-          ball.setUpwardsRotation(0.87266463) //50 degrees
-
-          serving = false;
-
-          if (this.letter == "b") lastTouchTeam = true; //if on right, right touched last
-          else lastTouchTeam = false; //if on left, left touched last
           lastTouch = this.letter;
           ballTouches++;
           this.timeToMove = false;
           this.makeAction = false;
 
+          ball.setHorizontalRotation(this.chosenAngle) //set the random angle
+
+          ball.setUpwardsVelocity(0.6)
+          ball.setHorizontalVelocity((Math.random() * (2.4 - 2) + 2))
+          ball.setUpwardsRotation(0.87266463) //50 degrees
+
           movementPrediction()
           movementDecision()
-
+          serving = false;
         }
 
       }
+      // }
+
+
+
     }
-
-
-
   }
 
   setpX(input) {

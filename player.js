@@ -91,7 +91,7 @@ class Player extends Box{
 
   ballInRange(){
     let XDistance = (this.getX() - ball.getX())
-    let YDistance = this.getY() - ball.getY()
+    let YDistance = (this.getY() - ball.getY())
     let ZDistance = (this.getZ() - ball.getZ())
 
     let totalDistanceSquared = XDistance**2 + YDistance**2 + ZDistance**2 //pythagoras

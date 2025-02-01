@@ -220,9 +220,9 @@ class User extends Player {
          if (servingPlayer == 0 && serving == true) {
             if (this.ballInRange()) {
 
-               if (this.getY() >= 7) { //jump serve
+               if (this.getY() >= 6) { //jump serve
                   ball.setUpwardsVelocity(0.6)
-                  ball.setHorizontalVelocity((Math.random() * (2.2-1.8) + 1.4))
+                  ball.setHorizontalVelocity((Math.random() * (2.25-1.8) + 1.8))
                }
                else { //standing serve
                   ball.setUpwardsVelocity(0.8)
@@ -275,6 +275,14 @@ class User extends Player {
          return false //ball out of range
       }
    }
+
+
+    lineFault(){
+      if(this.getX()<0){
+         scoring(false)
+         console.log("Right team crossed the NET")
+      }
+    }
 
 
 

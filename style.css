@@ -1,105 +1,116 @@
+body{
+    margin: 0;
+}
 
-.titular{
+.titular {
     margin-top: 0;
     margin-bottom: 0;
     background-color: black;
     color: white;
-    text-align:center;
-    font-size:x-large
+    text-align: center;
+    font-size: x-large
 }
 
-.sub-titular{
+.sub-titular {
     margin-top: 0;
     margin-bottom: 0;
     background-color: black;
     color: lightgray;
-    text-align:center;
-    font-size:large
+    text-align: center;
+    font-size: large
 }
 
-.s2-titular{
+.s2-titular {
     margin-top: 0;
     margin-bottom: 0;
     background-color: black;
     color: gray;
-    text-align:center;
-    font-size:medium
+    text-align: center;
+    font-size: medium
 }
 
-.s3-titular{
+.s3-titular {
     margin-top: 0;
     margin-bottom: 0;
     background-color: black;
     color: rgb(128, 128, 128);
-    text-align:center;
-    font-size:x-small
+    text-align: center;
+    font-size: x-small
 }
 
-.back{
+.back {
     margin-bottom: 0;
     background-color: black;
     color: rgb(144, 0, 240);
-    text-align:center;
+    text-align: center;
 }
 
 
-body{
+body {
     background-color: black;
 }
 
-.options{
+.options {
     margin-bottom: 0;
     background-color: black;
     color: rgb(0, 232, 240);
-    text-align:center;
+    text-align: center;
 }
 
-.options:hover{
+.options:hover {
     color: rgb(240, 164, 0);
     font-family: 'Cambria'
 }
 
 
-.controls-info{
+.controls-info {
     margin-bottom: 0;
     background-color: black;
     color: rgb(0, 232, 240);
-    text-align:center;
+    text-align: center;
 }
 
-.controls-info:hover{
+.controls-info:hover {
     font-family: 'Cambria', Cochin, Georgia, Times, Times New Roman, serif;
     /* color: rgb(240, 108, 0); */
 }
 
 
-.tips-info{
+.tips-info {
     margin-bottom: 0;
     color: rgb(0, 232, 240);
-    text-align:center;
+    text-align: center;
 }
 
-.tips-info::marker{
+.tips-info::marker {
     color: gray
 }
 
 
-div{
+div {
     background-color: gray;
     width: 40%;
-    height:fit-content;
-    margin-left:auto;
-    margin-right:auto;
+    height: fit-content;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-.game-screen{
-    margin-left:auto;
-    margin-right:auto;
-    width:95%
+.game-screen {
+    margin-left: auto;
+    margin-right: auto;
 }
 
+#score {
+    width: fit-content;
+    border: 3px solid #73AD21;
+    color: #73AD21;
+    margin: auto;
 
+}
 
-
-
-
+#wide {
+    width: 100vw;
+    height: 1px;
+    z-index: 999;
+    position: absolute;
+}
