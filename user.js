@@ -69,9 +69,9 @@ class User extends Player {
 
       if (input === "e") {  //e, BLOCK
          if (this.ballInRangeBlockingEdition() && (ballTouches == 0 || ballTouches == 3)) { //last touch came from left team (block)
-            ball.setUpwardsVelocity((Math.random()*(1.4-0.6)+0.6)-1)
+            ball.setUpwardsVelocity((Math.random() * (1.4 - 0.6) + 0.6) - 1)
             ball.setHorizontalVelocity(0.4)
-            ball.setUpwardsRotation(Math.random()*(1.22173048-0.4)+0.4)
+            ball.setUpwardsRotation(Math.random() * (1.22173048 - 0.4) + 0.4)
             ball.setHorizontalRotation(this.rotationRadians)
             movementPrediction()
 
@@ -82,7 +82,7 @@ class User extends Player {
             console.log(ballTouches)
 
             movementPrediction()
-            setTimeout(250,movementDecision())
+            setTimeout(250, movementDecision())
 
             console.log("Block")
          }
@@ -92,11 +92,11 @@ class User extends Player {
             if (lastTouch != "a") { //if the user did NOT touch ball last, allow the hit:
                ball.setUpwardsVelocity(0.3)
 
-               if (ABDistance("a", "ACTUALball") <= 2) ball.setHorizontalVelocity(Math.random()*(1.9-1.6)+1.6)
-               else ball.setHorizontalVelocity(Math.random()*(1.2-0.7)+0.7)
+               if (ABDistance("a", "ACTUALball") <= 2) ball.setHorizontalVelocity(Math.random() * (1.9 - 1.6) + 1.6)
+               else ball.setHorizontalVelocity(Math.random() * (1.2 - 0.7) + 0.7)
 
 
-               ball.setUpwardsRotation(Math.random()*(1.22173048-0.8)+0.8)
+               ball.setUpwardsRotation(Math.random() * (1.22173048 - 0.8) + 0.8)
                ball.setHorizontalRotation(this.rotationRadians)
 
 
@@ -196,7 +196,7 @@ class User extends Player {
 
       if (input === "t") {  //t, toss
          console.log("A")
-         if (serving == true){
+         if (serving == true) {
             console.log("B")
             if (this.ballInRange()) {
                serviceCollider = false
@@ -222,7 +222,7 @@ class User extends Player {
 
                if (this.getY() >= 6) { //jump serve
                   ball.setUpwardsVelocity(0.6)
-                  ball.setHorizontalVelocity((Math.random() * (2.25-1.8) + 1.8))
+                  ball.setHorizontalVelocity((Math.random() * (2.25 - 1.8) + 1.8))
                }
                else { //standing serve
                   ball.setUpwardsVelocity(0.8)
@@ -277,12 +277,12 @@ class User extends Player {
    }
 
 
-    lineFault(){
-      if(this.getX()<0){
+   lineFault() {
+      if (this.getX() < 0) {
          scoring(false)
          console.log("Right team crossed the NET")
       }
-    }
+   }
 
 
 

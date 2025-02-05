@@ -72,18 +72,18 @@ net.mesh.position.set(0, 7.5, 0)
 scene.add(net.mesh);
 
 //makes scoreboard
-let boardDimensions = new THREE.BoxGeometry(15,5,0.7)
-let board = new Box(boardDimensions,'red')
-board.mesh.position.set(17,4.8,-25)
-board.mesh.rotateY(-pi/8)
+let boardDimensions = new THREE.BoxGeometry(15, 5, 0.7)
+let board = new Box(boardDimensions, 'red')
+board.mesh.position.set(17, 4.8, -25)
+board.mesh.rotateY(-pi / 8)
 scene.add(board.mesh)
 
 //makes scoreboard legs
-let legDimensions = new THREE.BoxGeometry(0.5,5,0.5)
-let leg1 = new Box(legDimensions,'grey')
-let leg2 = new Box(legDimensions,'grey')
-leg1.mesh.position.set(13,0,-27)
-leg2.mesh.position.set(21,0,-24)
+let legDimensions = new THREE.BoxGeometry(0.5, 5, 0.5)
+let leg1 = new Box(legDimensions, 'grey')
+let leg2 = new Box(legDimensions, 'grey')
+leg1.mesh.position.set(13, 0, -27)
+leg2.mesh.position.set(21, 0, -24)
 scene.add(leg1.mesh)
 scene.add(leg2.mesh)
 

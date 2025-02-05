@@ -59,13 +59,13 @@ class Ball {
 
       // If the ball lands IN of the court on the right team’s side, award point to left team.
       if (this.getX() > 0 && this.getX() <= 47 && Math.abs(this.getZ()) <= 17) {
-        setTimeout(() => scoring(false),250)
+        setTimeout(() => scoring(false), 250)
         console.log("landed IN on right side")
       }
 
       // If the ball lands IN of the court on the left team’s side, award point to left team.
       if (this.getX() < 0 && this.getX() >= -47 && Math.abs(this.getZ()) <= 17) {
-        setTimeout(() => scoring(true),250)
+        setTimeout(() => scoring(true), 250)
         console.log("landed IN on left side")
       }
 
@@ -74,11 +74,11 @@ class Ball {
       if (Math.abs(this.getX()) > 47 || Math.abs(this.getZ()) > 17) {
         console.log("landed OUT")
         if (lastTouchTeam == true) { //right team touched it last
-          setTimeout(() => scoring(false),250)
+          setTimeout(() => scoring(false), 250)
           console.log("last touch was by RIGHT")
         }
         else {
-          setTimeout(() => scoring(true),250,) //left team touched it last
+          setTimeout(() => scoring(true), 250,) //left team touched it last
           console.log("last touch was by LEFT")
         }
       }
