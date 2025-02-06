@@ -43,25 +43,38 @@ function scoring(winner) { //input the team that won the point
         }
     }
 
-
-    if (leftSets != 2 && rightSets != 2) {
-
-        //checks to see if the game should end
-        if (leftPoints >= 21 && leftPoints >= rightPoints + 2) { //if left has won 25 points AND 2 clear points over right team
+    if (leftSets == 2 && rightSets == 2) {
+        if (leftPoints >= 15 && leftPoints >= rightPoints + 2) { //if left has won 25 points AND 2 clear points over right team
             leftSets++ //award a set
-            console.log("left team has won a set.")
+            alert("left team has won a set.")
             console.log("left has won " + leftSets + " sets")
 
-            //reset team's points
+            serving = true;
+            servingPlayer = 0; //0 is user, 1 is AI 2, 2 is user's teammate (aka AI 1), 3 is AI 3,
+            toMove = true;
+            serviceCollider = true;
+            gPressed = false;
+            lastTouchTeam;
+            lastTouch;
+    
+            //variables for rules, points, etc.
             leftPoints = 0
             rightPoints = 0
             servingPlayer++
         }
 
-        else if (rightPoints >= 21 && rightPoints >= leftPoints + 2) { //if left has won 25 points AND 2 clear points over right team
+        else if (rightPoints >= 15 && rightPoints >= leftPoints + 2) { //if left has won 25 points AND 2 clear points over right team
             rightSets++ //award a set
-            console.log("right team has won a set.")
+            alert("right team has won a set.")
             console.log("right has won " + rightSets + " sets")
+
+            serving = true;
+            servingPlayer = 1; //0 is user, 1 is AI 2, 2 is user's teammate (aka AI 1), 3 is AI 3,
+            toMove = true;
+            serviceCollider = true;
+            gPressed = false;
+            lastTouchTeam;
+            lastTouch;
 
             //reset team's points
             leftPoints = 0
@@ -71,8 +84,10 @@ function scoring(winner) { //input the team that won the point
     }
 
 
-    else if (leftSets == 2 || rightSets == 2) {
-        if (leftPoints >= 15 && leftPoints >= rightPoints + 2) { //if left has won 25 points AND 2 clear points over right team
+    else if (leftSets != 2 || rightSets != 2) {
+
+        //checks to see if the game should end
+        if (leftPoints >= 21 && leftPoints >= rightPoints + 2) { //if left has won 21 points AND 2 clear points over right team
             leftSets++ //award a set
             console.log("left team has won a set.")
             console.log("left has won " + leftSets + " sets")
@@ -83,7 +98,7 @@ function scoring(winner) { //input the team that won the point
             servingPlayer++
         }
 
-        else if (rightPoints >= 15 && rightPoints >= leftPoints + 2) { //if left has won 25 points AND 2 clear points over right team
+        else if (rightPoints >= 21 && rightPoints >= leftPoints + 2) { //if left has won 21 points AND 2 clear points over right team
             rightSets++ //award a set
             console.log("right team has won a set.")
             console.log("right has won " + rightSets + " sets")

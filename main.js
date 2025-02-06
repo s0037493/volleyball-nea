@@ -71,24 +71,6 @@ let net = new Box(netDimensions, 'hotpink')
 net.mesh.position.set(0, 7.5, 0)
 scene.add(net.mesh);
 
-//makes scoreboard
-let boardDimensions = new THREE.BoxGeometry(15, 5, 0.7)
-let board = new Box(boardDimensions, 'red')
-board.mesh.position.set(17, 4.8, -25)
-board.mesh.rotateY(-pi / 8)
-scene.add(board.mesh)
-
-//makes scoreboard legs
-let legDimensions = new THREE.BoxGeometry(0.5, 5, 0.5)
-let leg1 = new Box(legDimensions, 'grey')
-let leg2 = new Box(legDimensions, 'grey')
-leg1.mesh.position.set(13, 0, -27)
-leg2.mesh.position.set(21, 0, -24)
-scene.add(leg1.mesh)
-scene.add(leg2.mesh)
-
-
-
 //makes user
 let playerDimensions = new THREE.BoxGeometry(3, 10, 3) //used for all players
 let user = new User(playerDimensions, 'red', 5, 5, 10, true) // dimensions, colour,x,y,z, team(right=true)
@@ -127,10 +109,10 @@ var lastTouchTeam;
 var lastTouch;
 
 //variables for rules, points, etc.
-var leftPoints = 13
-let rightPoints = 0
-let leftSets = 2
-let rightSets = 1
+var leftPoints = 19
+let rightPoints = 14
+let leftSets = 1
+let rightSets = 2
 
 //controls server
 function servingControl() {
