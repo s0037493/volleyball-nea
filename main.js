@@ -109,7 +109,7 @@ var lastTouchTeam;
 var lastTouch;
 
 //variables for rules, points, etc.
-var leftPoints = 0
+let leftPoints = 0
 let rightPoints = 0
 let leftSets = 0
 let rightSets = 0
@@ -332,6 +332,7 @@ function render() {
   // console.log("serving player = " + servingPlayer)
 }
 
+updateScoreboard()
 render()
 
 

@@ -59,6 +59,7 @@ function scoring(winner) { //input the team that won the point
             //variables for rules, points, etc.
             leftPoints = 0
             rightPoints = 0
+            if (servingPlayer == 3) servingPlayer = -1 //if serving player is 3, set it to -1 so that the next line will increment to 0 instead of 4
             servingPlayer++
         }
 
@@ -75,6 +76,7 @@ function scoring(winner) { //input the team that won the point
             //reset team's points
             leftPoints = 0
             rightPoints = 0
+            if (servingPlayer == 3) servingPlayer = -1
             servingPlayer++
         }
     }
@@ -91,6 +93,7 @@ function scoring(winner) { //input the team that won the point
             //reset team's points
             leftPoints = 0
             rightPoints = 0
+            if (servingPlayer == 3) servingPlayer = -1
             servingPlayer++
         }
 
@@ -102,6 +105,7 @@ function scoring(winner) { //input the team that won the point
             //reset team's points
             leftPoints = 0
             rightPoints = 0
+            if (servingPlayer == 3) servingPlayer = -1
             servingPlayer++
         }
     }
