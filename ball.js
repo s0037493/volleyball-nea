@@ -50,10 +50,17 @@ class Ball {
 
   courtCollider() { //stops ball falling through floor and manages point-awarding when ball does touch floor
     if (this.getY() < 1.5) {
+
+      serving = false; //disable serving to aid with resetting play between rallies.
+      ai[0].nowServing = false;
+      ai[1].nowServing = false;
+      ai[2].nowServing = false;
+
       this.setY(1.5)
       this.setUpwardsVelocity(0) //ensures user motion stops and physics engine wont take them lower.
       this.setHorizontalVelocity(0)
-      this.velocity = 0
+      this.setUpwardsRotation(0)
+      this.setUpwardsVelocity(0)
 
       console.log(ballTouches + " touches")
 

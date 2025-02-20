@@ -281,6 +281,12 @@ class User extends Player {
       if (this.getX() < 0) {
          scoring(false)
          console.log("Right team crossed the NET")
+         ball.setY(1000)
+         ball.setUpwardsVelocity(0)
+
+         ai.forEach(x => {
+            x.allowedToServe = false;
+          })
       }
    }
 

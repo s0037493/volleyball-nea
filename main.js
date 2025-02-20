@@ -101,7 +101,7 @@ scene.add(ai[2].mesh)
 
 //variables for serving
 var serving = true;
-var servingPlayer = 0; //0 is user, 1 is AI 2, 2 is user's teammate (aka AI 1), 3 is AI 3,
+var servingPlayer = 0; //0 is user, 1 is AI 1, 2 is user's teammate (aka AI 0), 3 is AI 2,
 var toMove = true;
 var serviceCollider = true;
 var gPressed = false;
@@ -109,10 +109,10 @@ var lastTouchTeam;
 var lastTouch;
 
 //variables for rules, points, etc.
-var leftPoints = 19
-let rightPoints = 14
-let leftSets = 1
-let rightSets = 2
+var leftPoints = 0
+let rightPoints = 0
+let leftSets = 0
+let rightSets = 0
 
 //controls server
 function servingControl() {
@@ -168,11 +168,10 @@ function servingControl() {
       }
     }
 
-
     else if (servingPlayer == 1) {
 
       lastTouchTeam = true
-      lastTouch = "d"
+      lastTouch = "c"
       ballTouches = 2
 
       if (toMove == true) {
@@ -202,12 +201,13 @@ function servingControl() {
         ball.setZ(ai[1].getZ() + 1.6)
         ball.setY(ai[1].getY())
         setTimeout(() => ai[1].service(), 4000)
+
       }
     }
 
     else if (servingPlayer == 2) {
       lastTouchTeam = false
-      lastTouch = "a"
+      lastTouch = "b"
       ballTouches = 2
       if (toMove == true) {
         user.setX(20)
@@ -236,12 +236,14 @@ function servingControl() {
         ball.setX(ai[0].getX() - 3.5)
         ball.setZ(ai[0].getZ() - 1.6)
         ball.setY(ai[0].getY())
-        setTimeout(() => ai[0].service(), 3000)
+        setTimeout(() => ai[0].service(), 4000)
+
       }
     }
+
     else if (servingPlayer == 3) {
       lastTouchTeam = true
-      lastTouch = "c"
+      lastTouch = "d"
       ballTouches = 2
       if (toMove == true) {
         user.setX(20)
@@ -269,7 +271,8 @@ function servingControl() {
         ball.setX(ai[2].getX() + 3.5)
         ball.setZ(ai[2].getZ() + 1.6)
         ball.setY(ai[2].getY())
-        setTimeout(() => ai[2].service(), 3000)
+        setTimeout(() => ai[2].service(), 4000)
+
       }
     }
   }
@@ -317,11 +320,16 @@ function render() {
     x.courtCollider()
     x.hit()
     x.defensivePosition()
+    x.serveHit()
   })
   servingControl()
   cameraMovement()
 
   rules()
+
+  // console.log("upward velocity = " + ball.getUpwardsVelocity())
+  // console.log("serving =  " + serving)
+  // console.log("serving player = " + servingPlayer)
 }
 
 render()
