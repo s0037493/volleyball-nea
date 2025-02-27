@@ -9,6 +9,7 @@ const camera = new THREE.PerspectiveCamera(
   10000 //frustum far plane
 );
 
+
 camera.position.x = 1
 camera.position.z = 40
 camera.position.y = 40

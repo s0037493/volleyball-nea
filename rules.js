@@ -142,6 +142,10 @@ function scoring(winner) { //input the team that won the point
     toMove = true;
     serviceCollider = true;
 
+    ai[0].choice = Math.floor(Math.random(0,1)*4+1)
+    ai[1].choice = Math.floor(Math.random(0,1)*4+1)
+    ai[2].choice = Math.floor(Math.random(0,1)*4+1)
+
     updateScoreboard()
 }
 

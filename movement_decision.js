@@ -125,6 +125,11 @@
 
         ai[0].mustPosition = true;
       }
+
+
+      if(ballTouches==4){
+        setTimeout(() => scoring(false), 250)
+      }
   }
 
   function getPredictedX(){

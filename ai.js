@@ -121,8 +121,8 @@ class AI extends Player {
     else if (ABdist <= 33) ball.setHorizontalVelocity(0.2)//30 up  
     else if (ABdist <= 35) ball.setHorizontalVelocity(0.22)//30 up
     else if (ABdist > 35) ball.setHorizontalVelocity(0.26)//30 up  
-    
-    
+
+
     ball.setUpwardsRotation(0.87266463) //50 degrees
     console.log("Passing" + this.letter)
     ball.setHorizontalRotation(pTpAngle(this.letter, this.teammateLetter, false))
@@ -181,8 +181,8 @@ class AI extends Player {
         ball.setUpwardsVelocity(0.22)
         //changed hit velocity for testing purposes
         // ball.setHorizontalVelocity(10)
-        ball.setHorizontalVelocity(Math.random() * (1.9 - 1.4) + 1.4)
-        ball.setUpwardsRotation(Math.random() * (1.22173048 - 0.8) + 0.8)
+        ball.setHorizontalVelocity(Math.random() * (1.9 - 1.4) + 1.4 + velocityOffset[chosenDifficulty])
+        ball.setUpwardsRotation(Math.random() * (1.22173048 - 0.8) + 0.8 + rotationOffset[chosenDifficulty])
         console.log(ball.getUpwardsRotation() + " angle")
         console.log(ball.getHorizontalVelocity() + " velocity")
         if (this.letter == "b") {
@@ -223,8 +223,12 @@ class AI extends Player {
     this.allowedToServe = true;
 
     if (serving == true && this.allowedToServe == true) {
-      setTimeout(() => this.toss(), 1000)
+      if (this.choice != 1) {
+        setTimeout(() => this.toss(), 1000)
+      }
     }
+
+    
   }
 
   //maybe make seperate functions for the toss, jump and serve so in theory they just follow each other.
@@ -258,8 +262,8 @@ class AI extends Player {
 
   serveHit() {
     if (this.ballInRange() && this.getY() > 5 && serving == true) {
-      console.log("Served!")
-      
+      alert("jump")
+
       //manage angle of incidence
       if (this.letter == "b") {
         this.boundOne = pTpAngle(this.letter, "tl", false)
@@ -276,6 +280,43 @@ class AI extends Player {
       ball.setHorizontalRotation(this.chosenAngle) //set the random angle
       ball.setUpwardsVelocity(0.5)
       ball.setHorizontalVelocity((Math.random() * (2.4 - 1.8) + 1.8))
+      ball.setUpwardsRotation(0.78539) //50 degrees
+
+      //manage touches
+      if (this.letter == "b") lastTouchTeam = true; //if on right, right touched last
+      else lastTouchTeam = false; //if on left, left touched last
+      lastTouch = this.letter;
+      ballTouches++;
+      this.timeToMove = false;
+      this.makeAction = false;
+      this.allowedToHit = false;
+      setTimeout(250, movementDecision())
+
+      //reset serve variables
+      serving = false;
+      this.allowedToServe = false;
+    }
+    
+
+    else if (this.ballInRange() && this.choice == 1 && serving == true){
+      alert("stand")
+
+      //manage angle of incidence
+      if (this.letter == "b") {
+        this.boundOne = pTpAngle(this.letter, "tl", false)
+        this.boundTwo = pTpAngle(this.letter, "bl", false)
+      }
+      else if (this.letter == "c" || this.letter == "d") {
+        this.boundOne = pTpAngle(this.letter, "tr", false)
+        this.boundTwo = pTpAngle(this.letter, "br", false)
+      }
+      if (this.boundOne < this.boundTwo) this.chosenAngle = Math.random() * (this.boundTwo - this.boundOne) + this.boundOne //if max=boundTwo, generate random
+      else this.chosenAngle = Math.random() * (this.boundTwo - this.boundOne) + this.boundOne //if max=boundOne, generate random
+
+      //manage physics
+      ball.setHorizontalRotation(this.chosenAngle) //set the random angle
+      ball.setUpwardsVelocity(0.9)
+      ball.setHorizontalVelocity(1.8)
       ball.setUpwardsRotation(0.78539) //50 degrees
 
       //manage touches
